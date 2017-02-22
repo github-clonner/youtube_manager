@@ -33,9 +33,9 @@ exports.oauthredirect = (request, response) => {
         oauth.setCredentials(tokens);
         //response.end();
 
-        var req = youtube.search.list({
+        var req = youtube.subscriptions.list({
             part: "snippet",
-            q: "Depeche Mode"
+            mine: "true"
         }, (err, data) => {
             response.end(JSON.stringify(data));
             console.log(JSON.stringify(data));
