@@ -1,5 +1,8 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  - var toto = ["joueur du grenier", "ben eller", "the 8bit guy"]
+  ul
+    each sub in toto
+      li= sub
+

@@ -29,23 +29,16 @@ class OAuthConnection
         }));
     }
         
-    redirect(request, response) {
-        this._oauth.getToken(request.query.code/*"toto"*/, (err, tokens) => {
+    redirect(request, callback) {
+        this._oauth.getToken(request.query.code, (err, tokens) => {
             if (err) {
                 console.log(err);
                 process.exit();
             }
 
             this._oauth.setCredentials(tokens);
-        
-            var req = youtube.subscriptions.list({
-                part: "snippet",
-                mine: "true"
-            }, (err, data) => {
-                response.end(JSON.stringify(data));
-                console.log(JSON.stringify(data));
-                process.exit();
-            });
+            
+            callback();
         });
     }    
 }
