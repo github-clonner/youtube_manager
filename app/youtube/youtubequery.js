@@ -5,7 +5,7 @@ class YoutubeQuery
     querySubscriptions() {
         return new Promise((resolve, reject) => {
             let req = youtube.subscriptions.list({
-                    part: "snippet2",
+                    part: "snippet",
                     mine: "true"
                 }, (err, data) => {
                     if (err) {
