@@ -10,10 +10,10 @@ class YoutubeQuery
                 }, (err, data) => {
                     if (err) {
                         let error = new Error(err);
-                        return reject(error);
-                    } else {
-                        resolve(data);
+                        reject(error);
+                        return;
                     }
+                    resolve(data);
                 });     
         });
     }
