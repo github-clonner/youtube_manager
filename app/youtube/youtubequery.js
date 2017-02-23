@@ -4,13 +4,13 @@ class YoutubeQuery
 {
     querySubscriptions() {
         return new Promise((resolve, reject) => {
-            var req = youtube.subscriptions.list({
-                    part: "snippet",
+            let req = youtube.subscriptions.list({
+                    part: "snippet2",
                     mine: "true"
                 }, (err, data) => {
                     if (err) {
-                        var error = new Error(err);
-                        reject(error);
+                        let error = new Error(err);
+                        return reject(error);
                     } else {
                         resolve(data);
                     }
