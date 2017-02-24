@@ -15,5 +15,11 @@
     "pug": "~2.0.0-beta10",
     "serve-favicon": "~2.3.2",
     "youtube-api": "^2.0.6"
+  },
+  "devDependencies": {
+    "eslint": "^3.16.1",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-promise": "^3.4.2",
+    "eslint-plugin-standard": "^2.0.1"
   }
 }
