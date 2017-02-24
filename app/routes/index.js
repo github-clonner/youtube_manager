@@ -18,8 +18,8 @@ router.get('/oauthredirect', function (req, res, next) {
     let youtubeQuery = new youtube.YoutubeQuery()
     youtubeQuery.querySubscriptions()
                 .then((data) => {
-                  let labs = extractData(data)
-                  res.render('index', { labels: labs.labels })
+                  let ytData = extractData(data)
+                  res.render('index', { ytData: ytData })
                 })
                 .catch((error) => {
                   res.end(error.message)

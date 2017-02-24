@@ -1,12 +1,14 @@
 extends layout
 
 block content
-  .jumbotron
-    h1 Youtube Subscriptions Manager
+  .jumbotron.text-center
+    h2 Youtube Subscriptions Manager
     h3 The best way to manage your Youtube subscriptions
   .container
-    each label in labels
-      .row
-        .col-sm-12
-          p= label
-
+      each item in ytData.items
+        .row
+          .row-thumbnail.col-sm-1
+            a(href=item.url)
+              img(src=item.thumbnail)
+          .col-sm-11
+            h4= item.title
