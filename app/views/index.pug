@@ -1,8 +1,12 @@
 extends layout
 
 block content
-  - var toto = ["joueur du grenier", "ben eller", "the 8bit guy"]
-  ul
-    each sub in toto
-      li= sub
+  .jumbotron
+    h1 Youtube Subscriptions Manager
+    h3 The best way to manage your Youtube subscriptions
+  .container
+    each label in labels
+      .row
+        .col-sm-12
+          p= label
 

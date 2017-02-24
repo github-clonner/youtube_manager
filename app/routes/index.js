@@ -8,7 +8,7 @@ let oauthConnection = new oauth.OAuthConnection()
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('index')
+  res.end()
   oauthConnection.authenticate()
   oauthConnection.generateUrl()
 })
@@ -18,9 +18,8 @@ router.get('/oauthredirect', function (req, res, next) {
     let youtubeQuery = new youtube.YoutubeQuery()
     youtubeQuery.querySubscriptions()
                 .then((data) => {
-                  extractData(data)
-                  res.end()
-                  process.exit()
+                  let labs = extractData(data)
+                  res.render('index', { labels: labs.labels })
                 })
                 .catch((error) => {
                   res.end(error.message)
@@ -31,8 +30,7 @@ router.get('/oauthredirect', function (req, res, next) {
 
 function extractData (data) {
   let dataExtractor = new extractor.SubscriptionsExtraction(data)
-  let result = dataExtractor.extractInfo(data)
-  console.log(JSON.stringify(result))
+  return dataExtractor.extractInfo(data)
 }
 
 module.exports = router
