@@ -1,0 +1,141 @@
+{
+    "kind": "youtube#subscriptionListResponse",
+    "etag": "\"uQc-MPTsstrHkQcRXL3IWLmeNsM/ICME2V77e9DPCxLE20laKSN4_iM\"",
+    "nextPageToken": "CAUQAA",
+    "pageInfo": {
+        "totalResults": 179,
+        "resultsPerPage": 5
+    },
+    "items": [
+        {
+            "kind": "youtube#subscription",
+            "etag": "\"uQc-MPTsstrHkQcRXL3IWLmeNsM/vvYaiBlcDIyFSwvfGDn3LAhmWdE\"",
+            "id": "Iy1499R-3VEo6r52o4zsr0PpYz8-Mzk9K3088f3sO5c",
+            "snippet": {
+                "publishedAt": "2010-03-20T22:35:18.000Z",
+                "title": "Joueur Du Grenier",
+                "description": "Test de jeux à la con !",
+                "resourceId": {
+                    "kind": "youtube#channel",
+                    "channelId": "UC_yP2DpIgs5Y1uWC0T03Chw"
+                },
+                "channelId": "UCHHuwhBBLwEdS5jkrwlvKTg",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://yt3.ggpht.com/-2eu-eG4PLa8/AAAAAAAAAAI/AAAAAAAAAAA/FZUzswUhAmI/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"
+                    },
+                    "medium": {
+                        "url": "https://yt3.ggpht.com/-2eu-eG4PLa8/AAAAAAAAAAI/AAAAAAAAAAA/FZUzswUhAmI/s240-c-k-no-mo-rj-c0xffffff/photo.jpg"
+                    },
+                    "high": {
+                        "url": "https://yt3.ggpht.com/-2eu-eG4PLa8/AAAAAAAAAAI/AAAAAAAAAAA/FZUzswUhAmI/s240-c-k-no-mo-rj-c0xffffff/photo.jpg"
+                    }
+                }
+            }
+        },
+        {
+            "kind": "youtube#subscription",
+            "etag": "\"uQc-MPTsstrHkQcRXL3IWLmeNsM/f_694DhMeVp4eire5GXSJrG1aYo\"",
+            "id": "Iy1499R-3VEo6r52o4zsr2f_ovQj5T0P6T2F8E0NSJI",
+            "snippet": {
+                "publishedAt": "2016-08-16T09:56:06.000Z",
+                "title": "Hygiène Mentale",
+                "description": "Chaîne dédiée à l'Esprit Critique.\nL'objectif est de proposer des sorte de Cours d'Autodéfense-Intellectuelle, développer une méthode pour trier le vrai et le faux, et aider les enseignants a introduire la pensée critique dans leurs cours.  Bref, l'idée est de donner quelques conseils pour garder une bonne hygiène mentale.\n\nTextes - Montage - Voix  : Christophe Michel\n\nLe Youtube : https://www.youtube.com/HygieneMentale\nLe Facebook : http://facebook.com/HygieneMentale\nLe Twitter : https://twitter.com/HygieneMentale\nLe Tipee : https://www.tipeee.com/hygiene-mentale\nLe Mail : fauxsceptiques@gmail.com\nLe Site : http://laelith.fr/Zet\n\nL'Observatoire Zététique : http://zetetique.fr\n\nToutes les vidéos de ma chaîne Hygiène Mentale sont sous licence Créative Common : CC-BY-NC-SA .\nVous pouvez donc les télécharger et les diffuser librement. (par exemple comme support pédagogique en classe)",
+                "resourceId": {
+                    "kind": "youtube#channel",
+                    "channelId": "UCMFcMhePnH4onVHt2-ItPZw"
+                },
+                "channelId": "UCHHuwhBBLwEdS5jkrwlvKTg",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://yt3.ggpht.com/-Mz9kNPFR8hw/AAAAAAAAAAI/AAAAAAAAAAA/kw9K-P_0a0c/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"
+                    },
+                    "medium": {
+                        "url": "https://yt3.ggpht.com/-Mz9kNPFR8hw/AAAAAAAAAAI/AAAAAAAAAAA/kw9K-P_0a0c/s240-c-k-no-mo-rj-c0xffffff/photo.jpg"
+                    },
+                    "high": {
+                        "url": "https://yt3.ggpht.com/-Mz9kNPFR8hw/AAAAAAAAAAI/AAAAAAAAAAA/kw9K-P_0a0c/s240-c-k-no-mo-rj-c0xffffff/photo.jpg"
+                    }
+                }
+            }
+        },
+        {
+            "kind": "youtube#subscription",
+            "etag": "\"uQc-MPTsstrHkQcRXL3IWLmeNsM/nHP88KnI-XKuDdq6uRidxKwF7cY\"",
+            "id": "Iy1499R-3VEo6r52o4zsrxCRVcyY1W13GFXR65K0jVs",
+            "snippet": {
+                "publishedAt": "2017-02-12T21:42:11.000Z",
+                "title": "The 8-Bit Guy",
+                "description": "A computer video series focusing mainly on retro technology from the 80's, 90's and 2000's. However, once or twice a year I'll create something totally \"out there.\"  My main goal at this point is to make educational content about retro technology that is interesting and engaging.  Some people will be re-living their childhood, while others will be experiencing the technology for the first time. \n\nYou can help support this channel and content by donating $1 per month on Patreon:\nhttps://www.patreon.com/8BitGuy1",
+                "resourceId": {
+                    "kind": "youtube#channel",
+                    "channelId": "UC8uT9cgJorJPWu7ITLGo9Ww"
+                },
+                "channelId": "UCHHuwhBBLwEdS5jkrwlvKTg",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://yt3.ggpht.com/-CwfC3-3jalo/AAAAAAAAAAI/AAAAAAAAAAA/9VXlpqvGSYw/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"
+                    },
+                    "medium": {
+                        "url": "https://yt3.ggpht.com/-CwfC3-3jalo/AAAAAAAAAAI/AAAAAAAAAAA/9VXlpqvGSYw/s240-c-k-no-mo-rj-c0xffffff/photo.jpg"
+                    },
+                    "high": {
+                        "url": "https://yt3.ggpht.com/-CwfC3-3jalo/AAAAAAAAAAI/AAAAAAAAAAA/9VXlpqvGSYw/s240-c-k-no-mo-rj-c0xffffff/photo.jpg"
+                    }
+                }
+            }
+        },
+        {
+            "kind": "youtube#subscription",
+            "etag": "\"uQc-MPTsstrHkQcRXL3IWLmeNsM/q07LghHuHfEqN8lTj4HKqK8DlBg\"",
+            "id": "Iy1499R-3VEo6r52o4zsr5_lQcGKx65dRLtCjwLhZlI",
+            "snippet": {
+                "publishedAt": "2015-10-01T11:28:03.000Z",
+                "title": "e-penser",
+                "description": "Pourquoi bâiller, c'est contagieux ? Qu'est-ce qu'un trou noir ? Comment se forment les arc-en-ciel ? Aristote a-t-il eu raison au moins une fois de son vivant ? Pourquoi 42 ? Docteur qui ? A quoi a vraiment servi Einstein ? Le boson de Higgs ?! Le lolcat de Schrödinger...\n\nRestez curieux, et prenez le temps d'e-penser.",
+                "resourceId": {
+                    "kind": "youtube#channel",
+                    "channelId": "UCcziTK2NKeWtWQ6kB5tmQ8Q"
+                },
+                "channelId": "UCHHuwhBBLwEdS5jkrwlvKTg",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://yt3.ggpht.com/-M8hrbEZAiNE/AAAAAAAAAAI/AAAAAAAAAAA/evX4U8v93v8/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"
+                    },
+                    "medium": {
+                        "url": "https://yt3.ggpht.com/-M8hrbEZAiNE/AAAAAAAAAAI/AAAAAAAAAAA/evX4U8v93v8/s240-c-k-no-mo-rj-c0xffffff/photo.jpg"
+                    },
+                    "high": {
+                        "url": "https://yt3.ggpht.com/-M8hrbEZAiNE/AAAAAAAAAAI/AAAAAAAAAAA/evX4U8v93v8/s240-c-k-no-mo-rj-c0xffffff/photo.jpg"
+                    }
+                }
+            }
+        },
+        {
+            "kind": "youtube#subscription",
+            "etag": "\"uQc-MPTsstrHkQcRXL3IWLmeNsM/YcU1pr6Jlu-LAI1K1Tn0dNjAeZo\"",
+            "id": "Iy1499R-3VEo6r52o4zsr6QHUcNJfH8C4Zxdx0hFQF0",
+            "snippet": {
+                "publishedAt": "2014-08-29T12:36:55.000Z",
+                "title": "Computerphile",
+                "description": "Videos all about computers and computer stuff. Sister channel of Numberphile.",
+                "resourceId": {
+                    "kind": "youtube#channel",
+                    "channelId": "UC9-y-6csu5WGm29I7JiwpnA"
+                },
+                "channelId": "UCHHuwhBBLwEdS5jkrwlvKTg",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://yt3.ggpht.com/-JFhbdoLwRlI/AAAAAAAAAAI/AAAAAAAAAAA/RemIzWPj2ZA/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"
+                    },
+                    "medium": {
+                        "url": "https://yt3.ggpht.com/-JFhbdoLwRlI/AAAAAAAAAAI/AAAAAAAAAAA/RemIzWPj2ZA/s240-c-k-no-mo-rj-c0xffffff/photo.jpg"
+                    },
+                    "high": {
+                        "url": "https://yt3.ggpht.com/-JFhbdoLwRlI/AAAAAAAAAAI/AAAAAAAAAAA/RemIzWPj2ZA/s240-c-k-no-mo-rj-c0xffffff/photo.jpg"
+                    }
+                }
+            }
+        }
+    ]
+}
