@@ -16,5 +16,5 @@ a {
 }
 
 .container .row:nth-child(odd) {
-  background: #CCC;
+  background: #EEE;
 }

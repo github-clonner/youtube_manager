@@ -10,6 +10,7 @@ class SubscriptionsExtraction {
 
     for (let i = 0; i < this.data.items.length; i++) {
       extractedData.items[i] = {}
+      extractedData.items[i].id = this.data.items[i].id
       extractedData.items[i].title = this.data.items[i].snippet.title
       extractedData.items[i].url = this.createUrlChannel(this.data.items[i].snippet.resourceId.channelId)
       extractedData.items[i].thumbnail = this.data.items[i].snippet.thumbnails.default.url

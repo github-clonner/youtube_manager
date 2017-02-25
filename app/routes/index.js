@@ -28,6 +28,10 @@ router.get('/oauthredirect', function (req, res, next) {
   })
 })
 
+router.post('/submittags', (req, res, next) => {
+  res.end(req.body.input_tags)
+})
+
 function extractData (data) {
   let dataExtractor = new extractor.SubscriptionsExtraction(data)
   return dataExtractor.extractInfo(data)
