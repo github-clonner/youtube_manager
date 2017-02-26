@@ -1,21 +1,35 @@
 var express = require('express')
 var router = express.Router()
-var oauth = require('../classes/oauthconnection')
-var youtube = require('../classes/youtubequery')
+var youtube = require('youtube-api')
 var extractor = require('../classes/subscriptionsextraction')
+var readJson = require('r-json')
+var ytQuery = require('../classes/youtubequery')
 
-let oauthConnection = new oauth.OAuthConnection()
+const credentials = readJson('credentials.json')
+
+let oauth = youtube.authenticate({
+  type: 'oauth',
+  client_id: credentials.web.client_id,
+  client_secret: credentials.web.client_secret,
+  redirect_url: credentials.web.redirect_uris[0]
+})
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.end()
-  oauthConnection.authenticate()
-  oauthConnection.generateUrl()
-})
+  let authDone = null
 
-router.get('/oauthredirect', function (req, res, next) {
-  oauthConnection.redirect(req, () => {
-    let youtubeQuery = new youtube.YoutubeQuery()
+  if (req.session.valid) {
+    authDone = req.session.valid
+    req.session.valid = null
+  }
+
+  if (authDone === null) {
+    return res.redirect(oauth.generateAuthUrl({
+      access_type: 'offline',
+      scope: ['https://www.googleapis.com/auth/youtube']
+    }))
+  } else {
+    let youtubeQuery = new ytQuery.YoutubeQuery()
     youtubeQuery.querySubscriptions()
                 .then((data) => {
                   let ytData = extractData(data)
@@ -25,6 +39,24 @@ router.get('/oauthredirect', function (req, res, next) {
                   res.end(error.message)
                   process.exit()
                 })
+  }
+})
+
+router.get('/test', (req, res, next) => {
+  if (req.session.valid === true) { res.end('Ceci est un test') } else { res.end('le test a foiré') }
+})
+
+router.get('/oauthredirect', function (req, res, next) {
+  oauth.getToken(req.query.code, (err, tokens) => {
+    if (err) {
+      console.log(err)
+      return
+    }
+
+    oauth.setCredentials(tokens)
+    req.session.valid = true
+
+    res.redirect('/')
   })
 })
 
