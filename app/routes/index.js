@@ -42,10 +42,6 @@ router.get('/', function (req, res, next) {
   }
 })
 
-router.get('/test', (req, res, next) => {
-  if (req.session.valid === true) { res.end('Ceci est un test') } else { res.end('le test a foiré') }
-})
-
 router.get('/oauthredirect', function (req, res, next) {
   oauth.getToken(req.query.code, (err, tokens) => {
     if (err) {

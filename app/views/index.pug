@@ -4,20 +4,26 @@ block content
   .jumbotron.text-center
     h2 Youtube Subscriptions Manager
     h3 The best way to manage your Youtube subscriptions
-  .container
-      each item in ytData.items
-        .row
-          .row-thumbnail.col-sm-1
-            a(href=item.url)
-              img(src=item.thumbnail)
-          .col-sm-11
-            h4= item.title
-            .row
-              .col-sm-12
-                form(action="/submittags", method="POST")
-                  .form-group
-                    .input-group
-                      input(name="input_tags", class="form-control", type=text, placeholder="Tags...")
-                      span.input-group-btn
-                        button(class="btn btn-default", type="submit") Go
+  .container-fluid
+    .row
+      .col-sm-8
+        each item in ytData.items
+          .row
+            .row-thumbnail.col-sm-1
+              a(href=item.url)
+                img(src=item.thumbnail)
+            .col-sm-11
+              h4= item.title
+              span.glyphicon.glyphicon-tag
+              .row
+                .col-sm-12
+                  form(action="/submittags", method="POST")
+                    .form-group
+                      .input-group
+                        input(name="input_tags", class="form-control", type=text, placeholder="Tags...")
+                        span.input-group-btn
+                          button(class="btn btn-default", type="submit") Go
+      .col-sm-4
+        .panel.panel-default
+          .panel-heading Search options
 

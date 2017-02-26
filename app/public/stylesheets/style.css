@@ -11,10 +11,20 @@ a {
   padding: 0px 0px 0px 0px !important;
 }
 
-.container .col-sm-11 h4 {
-  font-size: 18px;
+.container-fluid .col-sm-11 {
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
-.container .row:nth-child(odd) {
+.container-fluid .col-sm-11 h4 {
+  font-size: 18px;
+  /*display: inline;*/
+}
+
+.col-sm-8 > .row:nth-child(odd) {
   background: #EEE;
+}
+
+.col-sm-8 > .row:nth-child(even) {
+  background: #DDD;
 }
