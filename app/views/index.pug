@@ -14,15 +14,16 @@ block content
                 img(src=item.thumbnail)
             .col-sm-11
               h4= item.title
-              span.glyphicon.glyphicon-tag
-              .row
+              a(href="#")
+                span.glyphicon.glyphicon-tag
+              // .row
                 .col-sm-12
                   form(action="/submittags", method="POST")
                     .form-group
                       .input-group
                         input(name="input_tags", class="form-control", type=text, placeholder="Tags...")
                         span.input-group-btn
-                          button(class="btn btn-default", type="submit") Go
+                          button(class="btn btn-default", type="submit")
       .col-sm-4
         .panel.panel-default
           .panel-heading Search options

@@ -16,9 +16,15 @@ a {
   padding-right: 30px;
 }
 
+.container-fluid .col-sm-11 a:link {
+  text-decoration: none;
+}
+
 .container-fluid .col-sm-11 h4 {
   font-size: 18px;
-  /*display: inline;*/
+  display: inline-block;
+  margin-top: 0.5em;
+  padding-right: 1em;
 }
 
 .col-sm-8 > .row:nth-child(odd) {
