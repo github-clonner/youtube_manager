@@ -33,3 +33,12 @@ div.col-sm-11 > a > span {
 .col-sm-8 > .row:nth-child(even) {
   background: #DDD;
 }
+
+.col-sm-4 #ddbTags {
+  display: inline-block;
+  margin-left: 1em;  
+}
+
+.col-sm-4 #ddbTags span {
+  margin-left: 1em;
+}
