@@ -14,8 +14,8 @@ block content
                 img(src=item.thumbnail)
             .col-sm-11
               h4= item.title
-              a(href="#")
-                span.glyphicon.glyphicon-tag
+              a(href="#" data-toggle="tooltip" title="Add tag")
+                span.glyphicon.glyphicon-tag.pull-right
               // .row
                 .col-sm-12
                   form(action="/submittags", method="POST")
@@ -27,4 +27,7 @@ block content
       .col-sm-4
         .panel.panel-default
           .panel-heading Search options
-
+          .panel-body
+            .dropdown
+              button.btn.btn-default.dropdown-toggle(type="button" id="ddbTag" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Dropdown
+                span.caret

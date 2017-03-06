@@ -13,11 +13,10 @@ a {
 
 .container-fluid .col-sm-11 {
   padding-left: 30px;
-  padding-right: 30px;
 }
 
-.container-fluid .col-sm-11 a:link {
-  text-decoration: none;
+div.col-sm-11 > a > span {
+  margin-top: 0.5em;
 }
 
 .container-fluid .col-sm-11 h4 {
