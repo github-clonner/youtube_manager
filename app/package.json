@@ -2,7 +2,9 @@
   "name": "app",
   "version": "0.0.0",
   "private": true,
-  "scripts": {
+  "scripts": { 
+    "build-css": "node-sass --include-path scss scss/main.scss public/stylesheets/main.css",
+    "watch": "nodemon -e scss,js -x \"npm run build-css\"",
     "start": "nodemon ./bin/www"
   },
   "dependencies": {
@@ -24,6 +26,7 @@
     "eslint": "^3.16.1",
     "eslint-config-standard": "^6.2.1",
     "eslint-plugin-promise": "^3.4.2",
-    "eslint-plugin-standard": "^2.0.1"
+    "eslint-plugin-standard": "^2.0.1",
+    "node-sass": "^4.5.0"
   }
 }

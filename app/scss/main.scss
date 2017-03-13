@@ -1,0 +1,44 @@
+body {
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.row-thumbnail {
+  padding: 0px 0px 0px 0px !important;
+}
+
+.container-fluid {
+    .col-sm-11 {
+        padding-left: 30px;
+        > a {
+            > span {
+                margin-top: 0.5em;
+            }
+        }
+        h4 {
+            font-size: 18px;
+            display: inline-block;
+            margin-top: 0.5em;
+            padding-right: 1em;
+        }
+    }
+}
+
+.col-sm-8 {
+    > .row:nth-child(odd) {
+        background: #EEE;
+    }
+    > .row::nth-child(even) {
+        background: #DDD;   
+    }
+}
+
+.col-sm-4 {
+    #ddbTags {
+        display: inline-block;
+        margin-left: 1em;
+        span {
+            margin-left: 1em;
+        }
+    }
+}
