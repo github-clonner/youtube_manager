@@ -2,10 +2,9 @@
   "name": "app",
   "version": "0.0.0",
   "private": true,
-  "scripts": { 
-    "build-css": "node-sass --include-path scss scss/main.scss public/stylesheets/main.css",
-    "watch": "nodemon -e scss,js -x \"npm run build-css\"",
-    "start": "nodemon ./bin/www"
+  "scripts": {
+    "start": "nodemon -e scss,js -x \"npm run myapp\"", 
+    "myapp": "node-sass --include-path scss scss/main.scss public/stylesheets/main.css && node ./bin/www"    
   },
   "dependencies": {
     "body-parser": "~1.16.0",
