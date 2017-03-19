@@ -15,15 +15,7 @@ block content
             .col-sm-11
               h4= item.title
               a(href="#" data-toggle="tooltip" title="Add tag")
-                span.glyphicon.glyphicon-tag.pull-right
-              // .row
-                .col-sm-12
-                  form(action="/submittags", method="POST")
-                    .form-group
-                      .input-group
-                        input(name="input_tags", class="form-control", type=text, placeholder="Tags...")
-                        span.input-group-btn
-                          button(class="btn btn-default", type="submit")
+                span(id=item.id).glyphicon.glyphicon-tag.pull-right
       .col-sm-4
         .panel.panel-default
           .panel-heading Search options
@@ -37,3 +29,10 @@ block content
                   a(href="#") Toto
                 li
                   a(href="#") Titi
+  #tagModal.modal.fade(tabindex="1" role="dialog")
+    .modal-dialog(role="document")
+      .modal-content
+        .modal-body
+          input.form-control(type="text" placeholder="Enter tags, comma separated" aria-describedby="basic-addon1")
+        .modal-footer
+          button#btnSend.btn.btn-default(type="button") Send
