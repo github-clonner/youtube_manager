@@ -3,6 +3,11 @@ body {
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+#main {
+  margin: 0 auto;
+  width: 70%; 
+}
+
 .row-thumbnail {
   padding: 0px 0px 0px 0px !important;
 }
@@ -28,16 +33,19 @@ body {
                 margin-top: 0.5em;
                 padding-right: 1em;
             }
+            p {
+                margin-top: 15px;
+            }
+        }
+    }
+    .col-sm-4 {
+        #ddbTags {
+            display: inline-block;
+            margin-left: 1em;
+            span {
+                margin-left: 1em;
+            }
         }
     }
 }
 
-.col-sm-4 {
-    #ddbTags {
-        display: inline-block;
-        margin-left: 1em;
-        span {
-            margin-left: 1em;
-        }
-    }
-}

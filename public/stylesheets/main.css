@@ -2,6 +2,10 @@ body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
 
+#main {
+  margin: 0 auto;
+  width: 70%; }
+
 .row-thumbnail {
   padding: 0px 0px 0px 0px !important; }
 
@@ -20,9 +24,11 @@ body {
     display: inline-block;
     margin-top: 0.5em;
     padding-right: 1em; }
+  .container-fluid .col-sm-8 .col-sm-11 p {
+    margin-top: 15px; }
 
-.col-sm-4 #ddbTags {
+.container-fluid .col-sm-4 #ddbTags {
   display: inline-block;
   margin-left: 1em; }
-  .col-sm-4 #ddbTags span {
+  .container-fluid .col-sm-4 #ddbTags span {
     margin-left: 1em; }

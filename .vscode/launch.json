@@ -8,8 +8,8 @@
             "type": "node",
             "request": "launch",
             "name": "Lancer le programme",
-            "program": "${workspaceRoot}/app/bin/www",
-            "cwd": "${workspaceRoot}/app"
+            "program": "${workspaceRoot}/bin/www",
+            "cwd": "${workspaceRoot}"
         },
         {
             "type": "node",
