@@ -9,26 +9,31 @@ body {
 .row-thumbnail {
   padding: 0px 0px 0px 0px !important; }
 
-.container-fluid .col-sm-8 > .row:nth-child(odd) {
+.container-fluid .filters {
+  margin-bottom: 15px; }
+  .container-fluid .filters #ddbTags {
+    display: inline-block;
+    margin-left: 1em; }
+    .container-fluid .filters #ddbTags span {
+      margin-left: 1em; }
+
+.container-fluid .items_list > .row:nth-child(odd) {
   background: #EEE; }
 
-.container-fluid .col-sm-8 > .row::nth-child(even) {
+.container-fluid .items_list > .row::nth-child(even) {
   background: #DDD; }
 
-.container-fluid .col-sm-8 .col-sm-11 {
+.container-fluid .items_list .col-sm-11 {
   padding-left: 30px; }
-  .container-fluid .col-sm-8 .col-sm-11 > a > span {
+  .container-fluid .items_list .col-sm-11 span {
     margin-top: 0.5em; }
-  .container-fluid .col-sm-8 .col-sm-11 h4 {
+  .container-fluid .items_list .col-sm-11 h4 {
     font-size: 18px;
     display: inline-block;
     margin-top: 0.5em;
     padding-right: 1em; }
-  .container-fluid .col-sm-8 .col-sm-11 p {
+  .container-fluid .items_list .col-sm-11 p {
     margin-top: 15px; }
 
-.container-fluid .col-sm-4 #ddbTags {
-  display: inline-block;
-  margin-left: 1em; }
-  .container-fluid .col-sm-4 #ddbTags span {
-    margin-left: 1em; }
+#btnSend {
+  margin-left: 510px; }

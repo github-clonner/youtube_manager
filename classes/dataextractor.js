@@ -1,4 +1,4 @@
-class SubscriptionsExtraction {
+class DataExtractor {
   constructor (data) {
     this.data = data
     this.channelUrl = 'https://www.youtube.com/channel/'
@@ -25,4 +25,4 @@ class SubscriptionsExtraction {
   }
 }
 
-exports.SubscriptionsExtraction = SubscriptionsExtraction
+exports.DataExtractor = DataExtractor

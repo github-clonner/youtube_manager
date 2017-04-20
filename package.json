@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon -e scss,js -x \"npm run myapp\"", 
-    "myapp": "node-sass --include-path scss scss/main.scss public/stylesheets/main.css && node ./bin/www"    
+    "start": "nodemon -e scss,js -x \"npm run myapp\"",
+    "myapp": "node-sass --include-path scss scss/main.scss public/stylesheets/main.css && node ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.16.0",
@@ -15,10 +15,12 @@
     "express-session": "^1.15.1",
     "jquery": "^3.1.1",
     "morgan": "~1.7.0",
-    "opn": "^4.0.2",
+    "pouchdb": "^6.1.2",
     "pug": "~2.0.0-beta10",
     "r-json": "^1.2.5",
+    "sequelize": "^3.30.4",
     "serve-favicon": "~2.3.2",
+    "sqlite": "^2.5.0",
     "youtube-api": "^2.0.6"
   },
   "devDependencies": {
@@ -26,6 +28,7 @@
     "eslint-config-standard": "^6.2.1",
     "eslint-plugin-promise": "^3.4.2",
     "eslint-plugin-standard": "^2.0.1",
-    "node-sass": "^4.5.0"
+    "node-sass": "^4.5.0",
+    "nodemon": "^1.11.0"
   }
 }

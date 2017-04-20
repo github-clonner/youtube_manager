@@ -6,8 +6,18 @@ block content
       h2 Youtube Subscriptions Manager
       h3 The best way to manage your Youtube subscriptions
     .container-fluid
+      .row.filters
+        .col-sm-12
+          #ddbTags.dropdown
+            button.btn.btn-default.dropdown-toggle(type="button" id="ddbTag" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Search by tags
+              span.caret
+            ul.dropdown-menu(aria-labelledby="dropdownMenu1")
+              li
+                a(href="#") Toto
+              li
+                a(href="#") Titi
       .row
-        .col-sm-8
+        .col-sm-12.items_list
           each item in ytData.items
             .row
               .row-thumbnail.col-sm-1
@@ -18,23 +28,13 @@ block content
                 a(href="#" data-toggle="tooltip" title="Add tag")
                   span(id=item.id).glyphicon.glyphicon-tag.pull-right
                 p Tags:
-        .col-sm-4
-          .panel.panel-default
-            .panel-heading Search options
-            .panel-body
-              span Search tag
-              #ddbTags.dropdown
-                button.btn.btn-default.dropdown-toggle(type="button" id="ddbTag" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") (Search)
-                  span.caret
-                ul.dropdown-menu(aria-labelledby="dropdownMenu1")
-                  li
-                    a(href="#") Toto
-                  li
-                    a(href="#") Titi
+      
   #tagModal.modal.fade(tabindex="1" role="dialog")
     .modal-dialog(role="document")
       .modal-content
         .modal-body
-          input.form-control(type="text" placeholder="Enter tags, comma separated" aria-describedby="basic-addon1")
-        .modal-footer
-          button#btnSend.btn.btn-default(type="button") Send
+          form#formTags(method="POST" action="/submittags")
+            .form-group
+              input.form-control(type="text" placeholder="Enter tags, comma separated" aria-describedby="basic-addon1" name="input_tags")
+              input(type="hidden" name="sub_id")
+            button#btnSend.btn.btn-default(type="submit") Send     

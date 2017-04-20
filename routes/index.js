@@ -1,7 +1,7 @@
 var express = require('express')
 var router = express.Router()
 var youtube = require('youtube-api')
-var extractor = require('../classes/subscriptionsextraction')
+var dataextractor = require('../classes/dataextractor')
 var readJson = require('r-json')
 var ytQuery = require('../classes/youtubequery')
 
@@ -61,7 +61,7 @@ router.post('/submittags', (req, res, next) => {
 })
 
 function extractData (data) {
-  let dataExtractor = new extractor.SubscriptionsExtraction(data)
+  let dataExtractor = new dataextractor.DataExtractor(data)
   return dataExtractor.extractInfo(data)
 }
 
