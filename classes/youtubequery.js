@@ -1,6 +1,7 @@
 const youtube = require('youtube-api')
 
 class YoutubeQuery {
+
   querySubscriptions () {
     return new Promise((resolve, reject) => {
       youtube.subscriptions.list({
@@ -9,8 +10,7 @@ class YoutubeQuery {
         maxResults: 50
       }, (err, data) => {
         if (err) {
-          let error = new Error(err)
-          reject(error)
+          reject(new Error(err))
           return
         }
         resolve(data)
