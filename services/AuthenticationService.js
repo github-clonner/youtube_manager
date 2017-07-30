@@ -14,6 +14,8 @@ class AuthenticationService {
         this.authDone = false
     }
 
+    get authDone () { return this.authDone }
+
     initAuthentication() {
         this.oauth = youtube.authenticate({
             type: 'oauth',
