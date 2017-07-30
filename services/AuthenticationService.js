@@ -7,11 +7,18 @@ var session = require('./SessionService')
 
 const credentials = readJson('../credentials.json')
 
+let instance = null
+
 class AuthenticationService {
 
     constructor() {
-        this.oauth = null
-        this.authDone = false
+        if (!instance) {
+            this.oauth = null
+            this.authDone = false
+            instance = this
+        }
+
+        return instance
     }
 
     get authDone () { return this.authDone }
@@ -36,6 +43,10 @@ class AuthenticationService {
                 logger.error("AuthenticationService.redirectCallback: error getToken")
                 throw new getTokenException("Error while getting token")
             }
+
+            this.oauth.setCredentials(tokens)
+
+            
         })
     }
 }

@@ -1,8 +1,15 @@
+let instance = null
+
 class SessionService {
 
     constructor(session) {
-        this.session = session
-        this.session.valid = false
+        if (!instance) {
+            this.session = session
+            this.session.valid = false
+            this.instance = instance
+        }
+
+        return instance
     }
 
     get valid ()        { return this.session.valid }
