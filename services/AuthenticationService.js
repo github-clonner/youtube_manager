@@ -3,7 +3,7 @@ var readJson = require('r-json')
 var logger = require('bug-killer')
 var OAuthException = require('../exceptions/OAuthException')
 var GetTokenException = require('../exceptions/GetTokenException')
-var Session = require('./SessionService')
+var SessionService = require('./SessionService')
 
 const credentials = readJson('./credentials.json')
 
@@ -14,15 +14,16 @@ class AuthenticationService {
   constructor () {
     if (!instance) {
       this.oauth = null
-      this.authDone = false
-      this.session = new Session()
+      this.authenticationDone = false
+      this.session = new SessionService.SessionService()
       instance = this
     }
 
     return instance
   }
 
-  get authDone () { return this.authDone }
+  get authDone () { return this.authenticationDone }
+  set authDone (authdone) { this.authenticationDone = authdone }
 
   initAuthentication () {
     this.oauth = youtube.authenticate({
