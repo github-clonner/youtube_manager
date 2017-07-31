@@ -4,7 +4,8 @@ var youtube = require('youtube-api')
 var dataextractor = require('../classes/dataextractor')
 var readJson = require('r-json')
 var ytQuery = require('../classes/youtubequery')
-var authenticationService = require('../services/AuthenticationService')
+var AuthenticationService = require('../services/AuthenticationService')
+var SessionService = require('../services/SessionService')
 
 const credentials = readJson('credentials.json')
 
@@ -17,10 +18,9 @@ let oauth = youtube.authenticate({
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-
-  let authInstance = new authenticationService()
-
-  //let authDone = null
+  let authInstance = new AuthenticationService()
+  let session = new SessionService(req.session)
+  let authDone = null
 
   if (req.session.valid) {
     authDone = req.session.valid
