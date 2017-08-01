@@ -50,7 +50,14 @@ router.get('/oauthredirect', function (req, res, next) {
   let session = new SessionService.SessionService(req.session)
   let authInstance = new AuthService.AuthenticationService(session)
 
-  authInstance.redirectCallback(req.query.code)
+  try {
+    authInstance.redirectCallback(req.query.code)
+    res.redirect('/')
+  } catch (e) {
+    res.end('Error while authenticating: ' + e.message)
+  }
+
+  
   /*oauth.getToken(req.query.code, (err, tokens) => {
     if (err) {
       console.log(err)

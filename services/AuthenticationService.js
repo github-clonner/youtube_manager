@@ -1,8 +1,6 @@
 var youtube = require('youtube-api')
 var readJson = require('r-json')
 var logger = require('bug-killer')
-var OAuthException = require('../exceptions/OAuthException')
-var GetTokenException = require('../exceptions/GetTokenException')
 
 let instance = null
 
@@ -34,7 +32,7 @@ class AuthenticationService {
 
     if (this.oauth === null) {
       logger.error('AuthenticationService.initAuthentication: oauth null')
-      throw new OAuthException('Error while authenticating')
+      throw new Error('Error while authenticating')
     }
   }
 
@@ -46,7 +44,7 @@ class AuthenticationService {
     this.oauth.getToken(code, (err, tokens) => {
       if (err) {
         logger.error('AuthenticationService.redirectCallback: error getToken')
-        throw new GetTokenException('Error while getting token')
+        throw new Error('Error while getting token')
       }
 
       logger.error('redirect ok')
