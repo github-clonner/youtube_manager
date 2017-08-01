@@ -3,40 +3,43 @@ var readJson = require('r-json')
 var logger = require('bug-killer')
 var OAuthException = require('../exceptions/OAuthException')
 var GetTokenException = require('../exceptions/GetTokenException')
-var SessionService = require('./SessionService')
-
-const credentials = readJson('./credentials.json')
 
 let instance = null
 
 class AuthenticationService {
 
-  constructor () {
+  constructor (session) {
     if (!instance) {
       this.oauth = null
-      this.authenticationDone = false
-      this.session = new SessionService.SessionService()
+      //this.authenticationDone = false
+      this.session = session
+      this.credentials = readJson('./credentials.json')
+      this.scope = ['https://www.googleapis.com/auth/youtube']
       instance = this
     }
 
     return instance
   }
 
-  get authDone () { return this.authenticationDone }
-  set authDone (authdone) { this.authenticationDone = authdone }
+  get authDone () { return this.session.valid }
+  // set authDone (authdone) { this.authenticationDone = authdone }
 
   initAuthentication () {
     this.oauth = youtube.authenticate({
       type: 'oauth',
-      client_id: credentials.web.client_id,
-      client_secret: credentials.web.client_secret,
-      redirect_url: credentials.web.redirect_uris[0]
+      client_id: this.credentials.web.client_id,
+      client_secret: this.credentials.web.client_secret,
+      redirect_url: this.credentials.web.redirect_uris[0]
     })
 
     if (this.oauth === null) {
       logger.error('AuthenticationService.initAuthentication: oauth null')
       throw new OAuthException('Error while authenticating')
     }
+  }
+
+  generateAuthUrl (accessType) {
+    return this.oauth.generateAuthUrl({ access_type: accessType, scope: this.scope })
   }
 
   redirectCallback (code) {
@@ -46,6 +49,7 @@ class AuthenticationService {
         throw new GetTokenException('Error while getting token')
       }
 
+      logger.error('redirect ok')
       this.oauth.setCredentials(tokens)
       this.session.valid = true
     })
