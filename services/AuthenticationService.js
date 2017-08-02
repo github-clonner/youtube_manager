@@ -9,7 +9,6 @@ class AuthenticationService {
   constructor (session) {
     if (!instance) {
       this.oauth = null
-      //this.authenticationDone = false
       this.session = session
       this.credentials = readJson('./credentials.json')
       this.scope = ['https://www.googleapis.com/auth/youtube']
@@ -20,9 +19,9 @@ class AuthenticationService {
   }
 
   get authDone () { return this.session.valid }
-  // set authDone (authdone) { this.authenticationDone = authdone }
 
   initAuthentication () {
+    console.log('initAuthentication')
     this.oauth = youtube.authenticate({
       type: 'oauth',
       client_id: this.credentials.web.client_id,
@@ -37,10 +36,12 @@ class AuthenticationService {
   }
 
   generateAuthUrl (accessType) {
+    console.log('generateAuthUrl')
     return this.oauth.generateAuthUrl({ access_type: accessType, scope: this.scope })
   }
 
-  redirectCallback (code) {
+  redirectCallback (code, callback) {
+    console.log('redirectCallback')
     this.oauth.getToken(code, (err, tokens) => {
       if (err) {
         logger.error('AuthenticationService.redirectCallback: error getToken')
@@ -50,6 +51,8 @@ class AuthenticationService {
       logger.error('redirect ok')
       this.oauth.setCredentials(tokens)
       this.session.valid = true
+
+      callback()
     })
   }
 }
