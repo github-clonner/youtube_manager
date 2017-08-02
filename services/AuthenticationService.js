@@ -21,7 +21,6 @@ class AuthenticationService {
   get authDone () { return this.session.valid }
 
   initAuthentication () {
-    console.log('initAuthentication')
     this.oauth = youtube.authenticate({
       type: 'oauth',
       client_id: this.credentials.web.client_id,
@@ -36,23 +35,23 @@ class AuthenticationService {
   }
 
   generateAuthUrl (accessType) {
-    console.log('generateAuthUrl')
     return this.oauth.generateAuthUrl({ access_type: accessType, scope: this.scope })
   }
 
-  redirectCallback (code, callback) {
-    console.log('redirectCallback')
-    this.oauth.getToken(code, (err, tokens) => {
-      if (err) {
-        logger.error('AuthenticationService.redirectCallback: error getToken')
-        throw new Error('Error while getting token')
-      }
+  redirectCallback (code) {
+    return new Promise((resolve, reject) => {
+      this.oauth.getToken(code, (err, tokens) => {
+        if (err) {
+          logger.error('AuthenticationService.redirectCallback: error getToken')
+          reject(new Error(err))
+          return
+        }
+        
+        this.oauth.setCredentials(tokens)
+        this.session.valid = true
 
-      logger.error('redirect ok')
-      this.oauth.setCredentials(tokens)
-      this.session.valid = true
-
-      callback()
+        resolve()
+      })
     })
   }
 }
