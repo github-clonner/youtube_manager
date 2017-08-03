@@ -1,6 +1,6 @@
 const youtube = require('youtube-api')
 
-class YoutubeQuery {
+class YoutubeService {
 
   querySubscriptions () {
     return new Promise((resolve, reject) => {
@@ -19,4 +19,4 @@ class YoutubeQuery {
   }
 }
 
-exports.YoutubeQuery = YoutubeQuery
+exports.YoutubeQuery = YoutubeService

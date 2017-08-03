@@ -16,10 +16,10 @@ router.get('/', async function (req, res, next) {
       authInstance.initAuthentication()
       return res.redirect(authInstance.generateAuthUrl('offline'))
     } else {
-      let youtubeQuery = new Youtube.YoutubeQuery()
-      let data = await youtubeQuery.querySubscriptions()
-      let ytData = extractData(data)
-      res.render('index', { ytData: ytData })
+      let youtube = new Youtube.YoutubeService()
+      let data = await youtube.querySubscriptions()
+      let subscriptions = extractData(data)
+      res.render('index', { ytData: subscriptions })
     }
   } catch (e) {
     res.end('Error while authentication init: ' + e.message)
