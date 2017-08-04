@@ -2,7 +2,7 @@ var express = require('express')
 var router = express.Router()
 
 var YoutubeDataService = require('../services/YoutubeDataService')
-var Youtube = require('../services/YoutubeService')
+
 var AuthService = require('../services/AuthenticationService')
 var SessionService = require('../services/SessionService')
 
@@ -16,9 +16,9 @@ router.get('/', async function (req, res, next) {
       authInstance.initAuthentication()
       return res.redirect(authInstance.generateAuthUrl('offline'))
     } else {
-      let youtube = new Youtube.YoutubeService()
-      let data = await youtube.querySubscriptions()
-      let subscriptions = extractData(data)
+      let youtubeDataService = new YoutubeDataService.YoutubeDataService()
+      let subscriptions = await youtubeDataService.getSubscriptionsInfos()
+
       res.render('index', { ytData: subscriptions })
     }
   } catch (e) {
@@ -39,10 +39,5 @@ router.post('/submittags', (req, res, next) => {
   res.end(req.body.input_tags)
   process.exit()
 })
-
-function extractData (data) {
-  let dataExtractor = new YoutubeDataService.DataExtractor(data)
-  return dataExtractor.extractInfo(data)
-}
 
 module.exports = router

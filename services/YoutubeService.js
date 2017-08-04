@@ -19,4 +19,4 @@ class YoutubeService {
   }
 }
 
-exports.YoutubeQuery = YoutubeService
+exports.YoutubeService = YoutubeService

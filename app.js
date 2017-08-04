@@ -7,6 +7,7 @@ var bodyParser = require('body-parser')
 var session = require('express-session')
 
 var index = require('./routes/index')
+var api = require('./routes/api')
 var app = express()
 
 // view engine setup
@@ -27,6 +28,7 @@ app.use(session({
 }))
 
 app.use('/', index)
+app.use('/api', api)
 
 // redirect bootstrap and jquery
 app.use('/js', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/js')))
