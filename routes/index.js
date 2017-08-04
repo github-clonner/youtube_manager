@@ -2,7 +2,7 @@ var express = require('express')
 var router = express.Router()
 
 var YoutubeDataService = require('../services/YoutubeDataService')
-
+var YoutubeService = require('../services/YoutubeService')
 var AuthService = require('../services/AuthenticationService')
 var SessionService = require('../services/SessionService')
 
@@ -16,7 +16,8 @@ router.get('/', async function (req, res, next) {
       authInstance.initAuthentication()
       return res.redirect(authInstance.generateAuthUrl('offline'))
     } else {
-      let youtubeDataService = new YoutubeDataService.YoutubeDataService()
+      let youtube = new YoutubeService.YoutubeService()
+      let youtubeDataService = new YoutubeDataService.YoutubeDataService(youtube)
       let subscriptions = await youtubeDataService.getSubscriptionsInfos()
 
       res.render('index', { ytData: subscriptions })

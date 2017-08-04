@@ -1,8 +1,6 @@
-var YoutubeService = require('../services/YoutubeService')
-
 class YoutubeDataService {
-  constructor (data) {
-    this.youtube = new YoutubeService.YoutubeService()
+  constructor (youtubeService) {
+    this.youtube = youtubeService
     this.channelUrl = 'https://www.youtube.com/channel/'
   }
 
