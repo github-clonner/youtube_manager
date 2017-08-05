@@ -9,6 +9,8 @@ class YoutubeDataService {
 
     let extractedData = {}
     extractedData.items = []
+    extractedData.nextPage = data.nextPageToken;
+    extractedData.previousPage = data.previousPageToken;
 
     for (let i = 0; i < data.items.length; i++) {
       extractedData.items[i] = {}
