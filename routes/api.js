@@ -1,7 +1,6 @@
 var YoutubeDataService = require('../services/YoutubeDataService')
 var YoutubeService = require('../services/YoutubeService')
 var AuthService = require('../services/AuthenticationService')
-var SessionService = require('../services/SessionService')
 
 var express = require('express')
 var router = express.Router()
