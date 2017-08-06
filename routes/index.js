@@ -8,32 +8,36 @@ var SessionService = require('../services/SessionService')
 
 /* GET home page. */
 router.get('/', async function (req, res, next) {
-  let session = new SessionService.SessionService(req.session)
   let authInstance = new AuthService.AuthenticationService(session)
 
   try {
-    if (!authInstance.authDone) {
+    var session = req.session
+
+    if (!session.valid) {
       authInstance.initAuthentication()
       return res.redirect(authInstance.generateAuthUrl('offline'))
-    } else {
-      let youtube = new YoutubeService.YoutubeService()
-      let youtubeDataService = new YoutubeDataService.YoutubeDataService(youtube)
-      let subscriptions = await youtubeDataService.getSubscriptionsInfos()
-
-      res.render('index', { ytData: subscriptions })
     }
-  } catch (e) {
-    res.end('Error while authentication init: ' + e.message)
+    
+    res.redirect('/api/subscriptions')
+  } catch (error) {
+    res.end('Error while authentication init: ' + error.message)
     process.exit()
   }
 })
 
 router.get('/oauthredirect', async function (req, res, next) {
-  let session = new SessionService.SessionService(req.session)
-  let authInstance = new AuthService.AuthenticationService(session)
-
-  await authInstance.redirectCallback(req.query.code)
-  res.redirect('/')
+  let authInstance = new AuthService.AuthenticationService()
+  let session = req.session
+  
+  try {
+    await authInstance.redirectCallback(req.query.code)
+    session.valid = true
+    res.redirect('/api/subscriptions')
+  } catch (error) {
+    session.valid = false
+    res.end("erreur")
+    return
+  }
 })
 
 router.post('/submittags', (req, res, next) => {

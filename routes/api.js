@@ -7,10 +7,10 @@ var express = require('express')
 var router = express.Router()
 
 router.get('/subscriptions', async function (req, res, next) {
-  let session = new SessionService.SessionService(req.session)
-  let authInstance = new AuthService.AuthenticationService(session)
+  let session = req.session
+  let authInstance = new AuthService.AuthenticationService()
 
-  if (!authInstance.authDone) {
+  if (!session.valid) {
       authInstance.initAuthentication()
       return res.redirect(authInstance.generateAuthUrl('offline'))
     } else {
@@ -25,10 +25,12 @@ router.get('/subscriptions', async function (req, res, next) {
 
 router.get('/page/next', function (req, res, next) {
   res.end('next')
+  return
 })
 
 router.get('/page/previous', function (req, res, next) {
   res.end('previous')
+  return
 })
 
 module.exports = router
