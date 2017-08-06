@@ -1,0 +1,14 @@
+{
+  "development": {
+    "dialect": "sqlite",
+    "storage": "/home/xavier/youtube.sqlite"
+  },
+  "test": {
+    "dialect": "sqlite",
+    "storage": ":memory:"
+  },
+  "production": {
+    "dialect": "sqlite",
+    "storage": "./db.sqlite"
+  }
+}
