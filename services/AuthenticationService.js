@@ -17,7 +17,7 @@ class AuthenticationService {
     return instance
   }
 
-    initAuthentication () {
+  initAuthentication () {
     this.oauth = youtube.authenticate({
       type: 'oauth',
       client_id: this.credentials.web.client_id,
@@ -42,9 +42,9 @@ class AuthenticationService {
           logger.error('AuthenticationService.redirectCallback: error getToken')
           reject(new Error(err))
         }
-        
+
         this.oauth.setCredentials(tokens)
-        
+
         resolve()
       })
     })

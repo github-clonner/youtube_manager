@@ -1,7 +1,14 @@
+let instance = null
+
 class YoutubeDataService {
   constructor (youtubeService) {
-    this.youtube = youtubeService
-    this.channelUrl = 'https://www.youtube.com/channel/'
+    if (!instance) {
+      this.youtube = youtubeService
+      this.channelUrl = 'https://www.youtube.com/channel/'
+      instance = this
+    }
+
+    return instance
   }
 
   async getSubscriptionsInfos () {
@@ -9,8 +16,8 @@ class YoutubeDataService {
 
     let extractedData = {}
     extractedData.items = []
-    extractedData.nextPage = data.nextPageToken;
-    extractedData.previousPage = data.previousPageToken;
+    extractedData.nextPage = data.nextPageToken
+    extractedData.previousPage = data.previousPageToken
 
     for (let i = 0; i < data.items.length; i++) {
       extractedData.items[i] = {}
@@ -22,6 +29,10 @@ class YoutubeDataService {
     }
 
     return extractedData
+  }
+
+  async refreshData () {
+    
   }
 
   createUrlChannel (channelId) {
