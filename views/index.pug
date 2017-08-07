@@ -7,8 +7,17 @@ block content
       h3 The best way to manage your Youtube subscriptions
     .container-fluid
       .row.filters
-        .col-sm-12
-          #ddbTags.dropdown
+        .col-sm-6
+          if ytData.previousPage
+            a(href="http://localhost:3000/api/subscriptions?size=" + ytData.size + "&page=" + ytData.previousPage) Previous 
+          else
+            span Previous 
+          if ytData.nextPage
+            a(href="http://localhost:3000/api/subscriptions?size=" + ytData.size +"&page=" + ytData.nextPage) Next
+          else
+            span Next
+        .col-sm-6
+          #ddbTags.dropdown.pull-right
             button.btn.btn-default.dropdown-toggle(type="button" id="ddbTag" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true") Search by tags
               span.caret
             ul.dropdown-menu(aria-labelledby="dropdownMenu1")

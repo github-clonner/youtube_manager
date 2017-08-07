@@ -17,20 +17,14 @@ router.get('/subscriptions', async function (req, res, next) {
     let youtube = new YoutubeService.YoutubeService()
     let youtubeDataService = new YoutubeDataService.YoutubeDataService(youtube)
 
-    let subscriptions = await youtubeDataService.getSubscriptionsInfos()
-
-    res.render('index', { ytData: subscriptions })
+    try {
+      let subscriptions = await youtubeDataService.getSubscriptionsInfos(req.query.page, req.query.size)
+      res.render('index', { ytData: subscriptions })
+    }
+    catch (error) {
+      console.log(error.message)
+    }
   }
-})
-
-router.get('/page/next', function (req, res, next) {
-  res.end('next')
-  return
-})
-
-router.get('/page/previous', function (req, res, next) {
-  res.end('previous')
-  return
 })
 
 router.put('/refresh', function (req, res, next) {

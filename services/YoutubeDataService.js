@@ -11,13 +11,19 @@ class YoutubeDataService {
     return instance
   }
 
-  async getSubscriptionsInfos () {
-    let data = await this.youtube.querySubscriptions()
+  async getSubscriptionsInfos (page, size) {
+    try {
+      var data = await this.youtube.querySubscriptions(page, size)
+    }
+    catch(error) {
+      throw new Error('Can\'t get data: '+ error.message)
+    }
 
     let extractedData = {}
     extractedData.items = []
     extractedData.nextPage = data.nextPageToken
-    extractedData.previousPage = data.previousPageToken
+    extractedData.previousPage = data.prevPageToken
+    extractedData.size = size
 
     for (let i = 0; i < data.items.length; i++) {
       extractedData.items[i] = {}
