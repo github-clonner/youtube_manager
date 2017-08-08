@@ -7,7 +7,7 @@ class YoutubeService {
       youtube.subscriptions.list({
         part: 'snippet',
         mine: 'true',
-        maxResults: size, 
+        maxResults: size,
         pageToken: page
       }, (err, data) => {
         if (err) {

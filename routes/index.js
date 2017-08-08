@@ -1,8 +1,6 @@
 var express = require('express')
 var router = express.Router()
 
-var YoutubeDataService = require('../services/YoutubeDataService')
-var YoutubeService = require('../services/YoutubeService')
 var AuthService = require('../services/AuthenticationService')
 
 /* GET home page. */
@@ -17,7 +15,7 @@ router.get('/', async function (req, res, next) {
       return res.redirect(authInstance.generateAuthUrl('offline'))
     }
 
-    res.redirect('/api/subscriptions')
+    res.redirect('/api/subscriptions?size=10')
   } catch (error) {
     res.end('Error while authentication init: ' + error.message)
     process.exit()
@@ -27,7 +25,7 @@ router.get('/', async function (req, res, next) {
 router.get('/oauthredirect', async function (req, res, next) {
   let authInstance = new AuthService.AuthenticationService()
   let session = req.session
-  
+
   try {
     await authInstance.redirectCallback(req.query.code)
     session.valid = true

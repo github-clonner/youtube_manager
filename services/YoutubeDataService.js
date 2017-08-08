@@ -14,9 +14,8 @@ class YoutubeDataService {
   async getSubscriptionsInfos (page, size) {
     try {
       var data = await this.youtube.querySubscriptions(page, size)
-    }
-    catch(error) {
-      throw new Error('Can\'t get data: '+ error.message)
+    } catch (error) {
+      throw new Error('Can\'t get data: ' + error.message)
     }
 
     let extractedData = {}
@@ -38,7 +37,12 @@ class YoutubeDataService {
   }
 
   async refreshData () {
-    
+    try {
+      var subscriptions = await this.getSubscriptionsInfos(undefined, 50)
+      return subscriptions
+    } catch (error) {
+      throw new Error('YoutubeDataService.refreshData: error while refreshing data')
+    }
   }
 
   createUrlChannel (channelId) {

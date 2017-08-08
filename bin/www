@@ -10,8 +10,8 @@ var http = require('http')
 var models = require('../models')
 
 /**
-   * Create HTTP server.
-   */
+  * Create HTTP server.
+  */
 
 var server = http.createServer(app)
 
@@ -21,10 +21,9 @@ var server = http.createServer(app)
 
 var port = normalizePort(process.env.PORT || '3000')
 app.set('port', port)
-console.log(port);
+console.log(port)
 
 models.sequelize.sync().then(() => {
-
   /**
    * Listen on provided port, on all network interfaces.
    */

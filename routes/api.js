@@ -6,17 +6,17 @@ var express = require('express')
 var models = require('../models')
 var router = express.Router()
 
+let youtube = new YoutubeService.YoutubeService()
+let youtubeDataService = new YoutubeDataService.YoutubeDataService(youtube)
+let authInstance = new AuthService.AuthenticationService()
+
 router.get('/subscriptions', async function (req, res, next) {
   let session = req.session
-  let authInstance = new AuthService.AuthenticationService()
 
   if (!session.valid) {
     authInstance.initAuthentication()
     return res.redirect(authInstance.generateAuthUrl('offline'))
   } else {
-    let youtube = new YoutubeService.YoutubeService()
-    let youtubeDataService = new YoutubeDataService.YoutubeDataService(youtube)
-
     try {
       let subscriptions = await youtubeDataService.getSubscriptionsInfos(req.query.page, req.query.size)
       res.render('index', { ytData: subscriptions })
@@ -27,8 +27,16 @@ router.get('/subscriptions', async function (req, res, next) {
   }
 })
 
-router.put('/refresh', function (req, res, next) {
-  
+router.put('/refresh', async function (req, res, next) {
+  let session = req.session
+
+  if (!session.valid) {
+    authInstance.initAuthentication()
+    return res.redirect(authInstance.generateAuthUrl('offline'))
+  } else {
+    var subs = await youtubeDataService.refreshData()
+    res.json(subs.toJSON())
+  }
 })
 
 router.post('/tag/create', function (req, res, next) {
