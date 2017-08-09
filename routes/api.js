@@ -26,7 +26,7 @@ router.get('/subscriptions', async function (req, res, next) {
   }
 })
 
-router.put('/refresh', async function (req, res, next) {
+router.get('/refresh', async function (req, res, next) {
   let session = req.session
 
   if (!session.valid) {
@@ -34,11 +34,11 @@ router.put('/refresh', async function (req, res, next) {
     return res.redirect(authInstance.generateAuthUrl('offline'))
   } else {
     var subs = await youtubeDataService.refreshData()
-    res.json(subs.toJSON())
+    res.json(JSON.stringify(subs))
   }
 })
 
-router.post('/tag/create', async function (req, res, next) {
+router.post('/tags/create', async function (req, res, next) {
   try {
     let tag = await models.Tag.create({ title: req.body.title })
     res.json(tag.toJSON())

@@ -4,7 +4,7 @@
     "password": null,
     "database": "youtube",
     "dialect": "sqlite",
-    "storage": "/home/xavier/youtube.sqlite"
+    "storage": "./youtube.sqlite"
   },
   "test": {
     "username": "root",

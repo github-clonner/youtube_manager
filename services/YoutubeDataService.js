@@ -37,12 +37,15 @@ class YoutubeDataService {
   }
 
   async refreshData () {
+    let subscriptions
+    do {
     try {
       var subscriptions = await this.getSubscriptionsInfos(undefined, 50)
       return subscriptions
     } catch (error) {
       throw new Error('YoutubeDataService.refreshData: error while refreshing data')
     }
+    } while (subscriptions.previousPage)
   }
 
   createUrlChannel (channelId) {
