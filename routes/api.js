@@ -20,8 +20,7 @@ router.get('/subscriptions', async function (req, res, next) {
     try {
       let subscriptions = await youtubeDataService.getSubscriptionsInfos(req.query.page, req.query.size)
       res.render('index', { ytData: subscriptions })
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error.message)
     }
   }
@@ -39,14 +38,13 @@ router.put('/refresh', async function (req, res, next) {
   }
 })
 
-router.post('/tag/create', function (req, res, next) {
-  models.Tag.create({
-    title: req.body.title
-  })
-  .then((tag) => {
+router.post('/tag/create', async function (req, res, next) {
+  try {
+    let tag = await models.Tag.create({ title: req.body.title })
     res.json(tag.toJSON())
-  })
-  .error(next)
+  } catch (error) {
+    next()
+  }
 })
 
 module.exports = router
