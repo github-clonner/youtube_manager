@@ -13,11 +13,14 @@ class YoutubeDataService {
 
   async getSubscriptionsInfos (page, size) {
     try {
-      var data = await this.youtube.querySubscriptions(page, size)
+      let data = await this.youtube.querySubscriptions(page, size)
+      return this.createExtractedData(data, size)
     } catch (error) {
       throw new Error('Can\'t get data: ' + error.message)
     }
+  }
 
+  createExtractedData (data, size) {
     let extractedData = {}
     extractedData.items = []
     extractedData.nextPage = data.nextPageToken
