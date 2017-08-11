@@ -12,33 +12,30 @@ class YoutubeDataService {
     return instance
   }
 
-  async getSubscriptionsInfos (page, size) {
+  async getSubscriptionsInfos (page) {
     try {
-      let data = await this.youtube.querySubscriptions(page, size)
-      let extracted = this.createExtractedData(data, size)
+      let data = await this.youtube.querySubscriptions(page)
+      let extracted = this.createExtractedData(data)
       await models.Subscription.bulkCreate(extracted.items)
-      let all = models.Subscription.findAll()
 
-      return all
+      return extracted
     } catch (error) {
       throw new Error('Can\'t get data: ' + error.message)
     }
   }
 
-  createExtractedData (data, size) {
+  createExtractedData (data) {
     let extractedData = {}
     extractedData.items = []
     extractedData.nextPage = data.nextPageToken
     extractedData.previousPage = data.prevPageToken
-    extractedData.size = size
-
+    
     for (let i = 0; i < data.items.length; i++) {
       extractedData.items[i] = {}
       extractedData.items[i].id = data.items[i].id
       extractedData.items[i].title = data.items[i].snippet.title
       extractedData.items[i].url = this.createUrlChannel(data.items[i].snippet.resourceId.channelId)
       extractedData.items[i].thumbnail_url = data.items[i].snippet.thumbnails.default.url
-      extractedData.items[i].description = data.items[i].snippet.description
     }
 
     return extractedData
