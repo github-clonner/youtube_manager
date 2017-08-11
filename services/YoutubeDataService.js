@@ -1,3 +1,4 @@
+var models = require('../models')
 let instance = null
 
 class YoutubeDataService {
@@ -14,7 +15,11 @@ class YoutubeDataService {
   async getSubscriptionsInfos (page, size) {
     try {
       let data = await this.youtube.querySubscriptions(page, size)
-      return this.createExtractedData(data, size)
+      let extracted = this.createExtractedData(data, size)
+      await models.Subscription.bulkCreate(extracted.items)
+      let all = models.Subscription.findAll()
+
+      return all
     } catch (error) {
       throw new Error('Can\'t get data: ' + error.message)
     }
@@ -32,7 +37,7 @@ class YoutubeDataService {
       extractedData.items[i].id = data.items[i].id
       extractedData.items[i].title = data.items[i].snippet.title
       extractedData.items[i].url = this.createUrlChannel(data.items[i].snippet.resourceId.channelId)
-      extractedData.items[i].thumbnail = data.items[i].snippet.thumbnails.default.url
+      extractedData.items[i].thumbnail_url = data.items[i].snippet.thumbnails.default.url
       extractedData.items[i].description = data.items[i].snippet.description
     }
 
