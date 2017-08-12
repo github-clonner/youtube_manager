@@ -22,7 +22,7 @@ router.get('/subscriptions', async function (req, res, next) {
     return res.redirect(authInstance.generateAuthUrl('offline'))
   } else {
     try {
-      let subscriptions = await youtubeDataService.getSubscriptionsInfos(req.query.page, req.query.size)
+      let subscriptions = await youtubeDataService.getSubscriptionsInfos(req.query.page)
       res.render('index', { ytData: subscriptions })
     } catch (error) {
       logger.error(error.message)
@@ -38,8 +38,8 @@ router.get('/refresh', async function (req, res, next) {
     authInstance.initAuthentication()
     return res.redirect(authInstance.generateAuthUrl('offline'))
   } else {
-    var subs = await youtubeDataService.refreshData()
-    res.json(JSON.stringify(subs))
+    await youtubeDataService.refreshData()
+    res.end()
   }
 })
 

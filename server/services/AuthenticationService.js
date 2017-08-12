@@ -9,7 +9,7 @@ class AuthenticationService {
   constructor () {
     if (!instance) {
       this.oauth = null
-      this.credentials = readJson('./credentials.json')
+      this.credentials = readJson('server/credentials.json')
       this.scope = ['https://www.googleapis.com/auth/youtube']
       instance = this
     }

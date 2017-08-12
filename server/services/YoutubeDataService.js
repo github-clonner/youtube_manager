@@ -1,5 +1,8 @@
 var models = require('../models')
+var SubcriptionsRepository = require('../repositories/SubscriptionRepository')
+
 let instance = null
+let subscriptionRepository = new SubcriptionsRepository.SubscriptionRepository()
 
 class YoutubeDataService {
   constructor (youtubeService) {
@@ -13,15 +16,7 @@ class YoutubeDataService {
   }
 
   async getSubscriptionsInfos (page) {
-    try {
-      let data = await this.youtube.querySubscriptions(page)
-      let extracted = this.createExtractedData(data)
-      await models.Subscription.bulkCreate(extracted.items)
-
-      return extracted
-    } catch (error) {
-      throw new Error('Can\'t get data: ' + error.message)
-    }
+   
   }
 
   createExtractedData (data) {
@@ -29,7 +24,7 @@ class YoutubeDataService {
     extractedData.items = []
     extractedData.nextPage = data.nextPageToken
     extractedData.previousPage = data.prevPageToken
-    
+
     for (let i = 0; i < data.items.length; i++) {
       extractedData.items[i] = {}
       extractedData.items[i].id = data.items[i].id
@@ -42,14 +37,18 @@ class YoutubeDataService {
   }
 
   async refreshData () {
-    do {
-      try {
-        var subscriptions = await this.getSubscriptionsInfos(undefined, 50)
-        return subscriptions
-      } catch (error) {
-        throw new Error('YoutubeDataService.refreshData: error while refreshing data')
-      }
-    } while (subscriptions.nextPage)
+    try {
+      var page
+      await subscriptionRepository.truncate()
+      do {
+        let data = await this.youtube.querySubscriptions(page)
+        var extracted = this.createExtractedData(data)
+        page = extracted.nextPage
+        await models.Subscription.bulkCreate(extracted.items, { ignoreDuplicates: true, updateOnDuplicates: ['title', 'url', 'thumbnail_url', 'createdAt', 'updatedAt'] })
+      } while (page !== undefined)
+    } catch (error) {
+      throw new Error('Can\'t get data: ' + error.message)
+    }
   }
 
   createUrlChannel (channelId) {
