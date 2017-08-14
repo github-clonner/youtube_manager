@@ -24,10 +24,13 @@
     "youtube-api": "^2.0.6"
   },
   "devDependencies": {
+    "chai": "^4.1.1",
+    "chai-http": "^3.0.0",
     "eslint": "^3.16.1",
     "eslint-config-standard": "^6.2.1",
     "eslint-plugin-promise": "^3.4.2",
     "eslint-plugin-standard": "^2.0.1",
+    "mocha": "^3.5.0",
     "node-sass": "^4.5.0",
     "nodemon": "^1.11.0"
   }

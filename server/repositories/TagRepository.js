@@ -13,6 +13,16 @@ class TagRepository {
     }
   }
 
+  async truncate () {
+    try {
+      logger.info('Truncating table Tags')
+      let affectedRows = await models.Tag.destroy({ truncate: true })
+      logger.info(`Done. ${affectedRows} rows deleted.`)
+    } catch (error) {
+      throw (error)
+    }
+  }
+
   async find (tagId) {
     try {
       logger.info(`Finding tag: ${tagId}`)
