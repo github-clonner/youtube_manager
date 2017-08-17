@@ -1,7 +1,7 @@
 let models = require('../server/models')
 let chai = require('chai')
 let chaiHttp = require('chai-http')
-let should = chai.should()
+let expect = chai.expect
 
 let TagRepository = require('../server/repositories/TagRepository')
 let tagRepository = new TagRepository.TagRepository()
@@ -21,10 +21,11 @@ describe('Test API', function() {
       .set('Content-Type', 'application/json')
       .send({ "title": "testTag" })
       .end((err, res) => {
-        res.should.have.status(200)        
-        res.body.should.be.json
-        res.body.id.should.be.above(1)
-        expect(res.body.title).to.equal('testTtg')
+        expect(res).to.have.status(200)
+        expect(res).to.have.headers        
+        expect(res).to.be.json
+        expect(res.body.id).to.be.above(0)
+        
         done()
       })
   })
