@@ -3,11 +3,29 @@ var logger = require('bug-killer')
 
 class TagRepository {
 
-  async create (tagTitle) {
+  /*async create (tagTitle) {
     try {
       logger.info(`TagRepository.create: ${tagTitle}`)
       let tag = await models.Tag.create({ title: tagTitle })
       return tag
+    } catch (error) {
+      throw (error)
+    }
+  }*/
+
+  async create (tagsArray) {
+    try {
+      if (tagsArray.length === 0) {
+        return
+      }
+
+      let result = []
+      for (var tag of tagsArray) {
+        let data = await models.Tag.create({ title: tag })
+        result.push(data)
+      }
+
+      return result
     } catch (error) {
       throw (error)
     }

@@ -8,6 +8,7 @@ var session = require('express-session')
 
 var index = require('./routes/index')
 var api = require('./routes/api')
+var config = require('config')
 var app = express()
 
 // view engine setup
@@ -16,7 +17,10 @@ app.set('view engine', 'pug')
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'))
+if (config.util.getEnv('NODE_ENV') !== ('test')) {
+  app.use(logger('combined'))
+}
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
