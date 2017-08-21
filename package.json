@@ -18,7 +18,7 @@
     "morgan": "~1.7.0",
     "pug": "~2.0.0-beta10",
     "r-json": "^1.2.5",
-    "sequelize": "^4.4.2",
+    "sequelize": "^4.4.10",
     "serve-favicon": "~2.3.2",
     "sqlite3": "^3.1.9",
     "youtube-api": "^2.0.6"

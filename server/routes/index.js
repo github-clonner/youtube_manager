@@ -1,11 +1,11 @@
 var express = require('express')
 var router = express.Router()
 
-var AuthService = require('../services/AuthenticationService')
+var { AuthenticationService } = require('../services/AuthenticationService')
 
 /* GET home page. */
 router.get('/', async function (req, res, next) {
-  let authInstance = new AuthService.AuthenticationService(session)
+  let authInstance = new AuthenticationService(session)
 
   try {
     var session = req.session
@@ -23,7 +23,7 @@ router.get('/', async function (req, res, next) {
 })
 
 router.get('/oauthredirect', async function (req, res, next) {
-  let authInstance = new AuthService.AuthenticationService()
+  let authInstance = new AuthenticationService(session)
   let session = req.session
 
   try {

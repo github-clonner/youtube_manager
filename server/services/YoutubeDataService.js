@@ -1,8 +1,8 @@
 var models = require('../models')
-var SubcriptionsRepository = require('../repositories/SubscriptionRepository')
+var { SubscriptionRepository } = require('../repositories/SubscriptionRepository')
 
 let instance = null
-let subscriptionRepository = new SubcriptionsRepository.SubscriptionRepository()
+let subscriptionRepository = new SubscriptionRepository()
 
 class YoutubeDataService {
   constructor (youtubeService) {
