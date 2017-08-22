@@ -1,19 +1,22 @@
 let models = require('../models')
 let logger = require('bug-killer')
+let { SubscriptionRepository } = require('./SubscriptionRepository')
+
+let subscriptionRepository = new SubscriptionRepository()
 
 class TagRepository {
 
-  async create (tagTitle) {
+  /* async create (tag) {
     try {
-      logger.info(`TagRepository.create: ${tagTitle}`)
-      let tag = await models.Tag.create({ title: tagTitle })
-      return tag
+      logger.info(`TagRepository.create: ${tag.title}`)
+      let out = await models.Tag.create({ title: tag.title })
+      return out
     } catch (error) {
       throw (error)
     }
-  }
+  } */
 
-  /*async create (tagsArray) {
+  async create (tagsArray) {
     try {
       if (tagsArray.length === 0) {
         return
@@ -21,15 +24,21 @@ class TagRepository {
 
       let result = []
       for (var tag of tagsArray) {
-        let data = await models.Tag.create({ title: tag })
-        result.push(data)
+        let subscription = await subscriptionRepository.findOne(tag.subscriptionId)
+        if (subscription !== null) {
+          for (var tagEntry of tag.tags) {
+            let theTag = await models.Tag.create({ title: tagEntry })
+            subscription.addTag(theTag)
+            result.push(theTag)
+          }
+        }
       }
 
       return result
     } catch (error) {
       throw (error)
     }
-  }*/
+  }
 
   async truncate () {
     try {

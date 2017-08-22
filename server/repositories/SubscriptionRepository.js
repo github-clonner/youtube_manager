@@ -1,13 +1,24 @@
 let models = require('../models')
 let logger = require('bug-killer')
+let moment = require('moment')
 
 class SubscriptionRepository {
 
   async truncate () {
     try {
-      logger.info('Truncating table Subscriptions')
+      //logger.info('-----Truncating table Subscriptions')
       let affectedRows = await models.Subscription.destroy({ where: {}, truncate: true })
-      logger.info(`Done. ${affectedRows} rows deleted.`)
+      //logger.info(`----- ${affectedRows} rows deleted.`)
+    } catch (error) {
+      throw (error)
+    }
+  }
+
+  async findOne (subId) {
+    try {
+      //logger.info(`Searching subscription: ${subId}`)
+      let subscription = await models.Subscription.findOne({ where: { id: subId } })
+      return subscription
     } catch (error) {
       throw (error)
     }
@@ -15,8 +26,8 @@ class SubscriptionRepository {
 
   async create (sub) {
     try {
-      logger.info('Creating subscription')
-      let currentDatetime = new Date().toLocaleString()
+      //logger.info('Creating subscription')
+      let currentDatetime = moment()
       let subscription = await models.Subscription.create({
         id: sub.id,
         title: sub.title,

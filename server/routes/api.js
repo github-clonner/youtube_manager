@@ -42,10 +42,10 @@ router.get('/refresh', async function (req, res, next) {
 })
 
 router.post('/tags/create', async function (req, res, next) {
-  logger.info(`creating tag : ${req.body.title}`)
+  logger.info(`/tags/create body: ${req.body}`)
   try {
-    let tag = await tagRepository.create(req.body.title)
-    res.json(tag.toJSON())
+    let tags = await tagRepository.create(req.body)
+    res.json(tags)
   } catch (error) {
     logger.error(error.message)
     next()

@@ -21,50 +21,56 @@ describe('Test API', function() {
 
   beforeEach(async () => {
     try {
-      let subTruncatePromise = subscriptionRepository.truncate()
-      let tagTruncatePromise = tagRepository.truncate()
-      await Promise.all([subTruncatePromise, tagTruncatePromise])
-      
-      let subCreatePromise = subscriptionRepository.create(
+      await subscriptionRepository.create(
         {
-          'id': 'mySub',
-          'title': 'mon titre d\'abonnement',
-          'url': 'http://www.totosubscription.com',
-          'thumbnail_url': 'http://thumbnail.com'
+          'id': 'subscriptionId1',
+          'title': 'Subscription Title 1',
+          'url': 'http://www.subscription1.com',
+          'thumbnail_url': 'http://thumbnail1.com'
         }
       )
-      let tagCreatePromise = tagRepository.create('myTag') 
-      let [subscription, tag] = await Promise.all([subCreatePromise, tagCreatePromise])
-      
-      await subscription.addTag(tag)
     } catch (error) {
       console.log(error.message)
     }
   })
 
-  it('should give 404 with bad url', function(done) {
+  afterEach(async () => {
+    try {
+      let subTruncatePromise = subscriptionRepository.truncate()
+      let tagTruncatePromise = tagRepository.truncate()
+      await Promise.all([subTruncatePromise, tagTruncatePromise])
+    } catch (error) {
+      console.log(error.message)
+    }
+  })
+
+  it('should create all tags', function(done) {
     chai.request(app)
-      .get('/toto')
-      .end((err, res) => {
-        expect(res).to.have.status(404)
+      .post('/api/tags/create')
+      .send([{
+        subscriptionId: 'subscriptionId1',
+        tags: ['tag1', 'tag2', 'tag3']
+      }])
+      .end(function (err, res) {
+        if (err !== null) {
+          console.log(err.message)
+        }
+        expect(err).to.be.null
+        expect(res).to.have.status(200)
+        expect(res).to.have.headers
+        expect(res).to.be.json
+        //expect(res.body).to.have.lengthOf(3)
         done()
       })
   })
 
-
-  /*it('should create tag', function(done) {
-    chai.request(app)      
-      .post('/api/tags/create')
-      .set('Content-Type', 'application/json')
-      .send({ "title": "testTag" })
-      .end((err, res) => {
-        expect(res).to.have.status(200)
-        expect(res).to.have.headers        
-        expect(res).to.be.json
-        expect(res.body).to.be.an('object')
-        expect(res.body.id).to.be.above(0)
-        
+  it('should give 404 with bad url', function(done) {
+    chai.request(app)
+      .get('/bad_url')
+      .end(function (err, res) {
+        expect(err).to.not.null
+        expect(res).to.have.status(404)
         done()
       })
-  })*/
+  })
 })
