@@ -21,8 +21,11 @@ describe('Test API', function() {
 
   beforeEach(async () => {
     try {
-      await subscriptionRepository.truncate()
-      let subscription = await subscriptionRepository.create(
+      let subTruncatePromise = subscriptionRepository.truncate()
+      let tagTruncatePromise = tagRepository.truncate()
+      await Promise.all([subTruncatePromise, tagTruncatePromise])
+      
+      let subCreatePromise = subscriptionRepository.create(
         {
           'id': 'mySub',
           'title': 'mon titre d\'abonnement',
@@ -30,10 +33,9 @@ describe('Test API', function() {
           'thumbnail_url': 'http://thumbnail.com'
         }
       )
-
-      await tagRepository.truncate()
-      let tag = await tagRepository.create('myTag') 
-
+      let tagCreatePromise = tagRepository.create('myTag') 
+      let [subscription, tag] = await Promise.all([subCreatePromise, tagCreatePromise])
+      
       await subscription.addTag(tag)
     } catch (error) {
       console.log(error.message)
