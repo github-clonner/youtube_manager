@@ -1,9 +1,9 @@
-var models = require('../models')
-var logger = require('bug-killer')
+let models = require('../models')
+let logger = require('bug-killer')
 
 class TagRepository {
 
-  /*async create (tagTitle) {
+  async create (tagTitle) {
     try {
       logger.info(`TagRepository.create: ${tagTitle}`)
       let tag = await models.Tag.create({ title: tagTitle })
@@ -11,9 +11,9 @@ class TagRepository {
     } catch (error) {
       throw (error)
     }
-  }*/
+  }
 
-  async create (tagsArray) {
+  /*async create (tagsArray) {
     try {
       if (tagsArray.length === 0) {
         return
@@ -29,12 +29,12 @@ class TagRepository {
     } catch (error) {
       throw (error)
     }
-  }
+  }*/
 
   async truncate () {
     try {
       logger.info('Truncating table Tags')
-      let affectedRows = await models.Tag.destroy({ truncate: true })
+      let affectedRows = await models.Tag.destroy({ where: {}, truncate: true })
       logger.info(`Done. ${affectedRows} rows deleted.`)
     } catch (error) {
       throw (error)

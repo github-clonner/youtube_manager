@@ -1,14 +1,13 @@
-var express = require('express')
-var router = express.Router()
+let express = require('express')
+let router = express.Router()
 
-var { AuthenticationService } = require('../services/AuthenticationService')
+let { AuthenticationService } = require('../services/AuthenticationService')
 
 /* GET home page. */
 router.get('/', async function (req, res, next) {
-  let authInstance = new AuthenticationService(session)
-
   try {
-    var session = req.session
+    let session = req.session
+    let authInstance = new AuthenticationService(session)
 
     if (!session.valid) {
       authInstance.initAuthentication()

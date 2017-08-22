@@ -1,5 +1,5 @@
-var models = require('../models')
-var { SubscriptionRepository } = require('../repositories/SubscriptionRepository')
+let models = require('../models')
+let { SubscriptionRepository } = require('../repositories/SubscriptionRepository')
 
 let instance = null
 let subscriptionRepository = new SubscriptionRepository()
@@ -38,11 +38,11 @@ class YoutubeDataService {
 
   async refreshData () {
     try {
-      var page
+      let page
       await subscriptionRepository.truncate()
       do {
         let data = await this.youtube.querySubscriptions(page)
-        var extracted = this.createExtractedData(data)
+        let extracted = this.createExtractedData(data)
         page = extracted.nextPage
         await models.Subscription.bulkCreate(extracted.items, { ignoreDuplicates: true, updateOnDuplicates: ['title', 'url', 'thumbnail_url', 'createdAt', 'updatedAt'] })
       } while (page !== undefined)

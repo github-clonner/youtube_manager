@@ -1,11 +1,11 @@
-var { YoutubeDataService } = require('../services/YoutubeDataService')
-var { YoutubeService } = require('../services/YoutubeService')
-var { AuthenticationService } = require('../services/AuthenticationService')
-var { TagRepository } = require('../repositories/TagRepository')
+let { YoutubeDataService } = require('../services/YoutubeDataService')
+let { YoutubeService } = require('../services/YoutubeService')
+let { AuthenticationService } = require('../services/AuthenticationService')
+let { TagRepository } = require('../repositories/TagRepository')
 
-var express = require('express')
-var logger = require('bug-killer')
-var router = express.Router()
+let express = require('express')
+let logger = require('bug-killer')
+let router = express.Router()
 
 let youtube = new YoutubeService()
 let youtubeDataService = new YoutubeDataService(youtube)

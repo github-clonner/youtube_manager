@@ -1,6 +1,6 @@
-var youtube = require('youtube-api')
-var readJson = require('r-json')
-var logger = require('bug-killer')
+let youtube = require('youtube-api')
+let readJson = require('r-json')
+let logger = require('bug-killer')
 
 let instance = null
 
