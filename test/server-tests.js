@@ -40,22 +40,52 @@ describe('Test API', function() {
     await Promise.all([subTruncatePromise, tagTruncatePromise])
   })
 
-  it('should create all tags', function(done) {
+  it('should create all tags for one subscription', function(done) {
     chai.request(app)
-      .post('/api/tags/create')
+      .post('/api/tags')
       .send([{
-        subscriptionId: 'subscriptionId1',
-        tags: ['tag1', 'tag2', 'tag3']
+        'subscriptionId': 'subscriptionId1',
+        'tags': ['tag1', 'tag2', 'tag3']
       }])
       .end(function (err, res) {
-        if (err !== null) {
-          console.log(err.message)
-        }
         expect(err).to.be.null
         expect(res).to.have.status(200)
         expect(res).to.have.headers
         expect(res).to.be.json
         expect(res.body).to.have.lengthOf(3)
+        expect(res.body[0]).to.have.property('id')
+        expect(res.body[0].id).to.be.above(0)
+        expect(res.body[0]).to.have.property('title')
+        expect(res.body[0].title).to.be.equal('tag1')
+        expect(res.body[1]).to.have.property('id')
+        expect(res.body[1].id).to.be.above(0)
+        expect(res.body[1]).to.have.property('title')
+        expect(res.body[1].title).to.be.equal('tag2')
+        expect(res.body[2]).to.have.property('id')
+        expect(res.body[2].id).to.be.above(0)
+        expect(res.body[2]).to.have.property('title')
+        expect(res.body[2].title).to.be.equal('tag3')
+        done()
+      })
+  })
+
+  it('should create one tag for one subscription', function(done) {
+    chai.request(app)
+      .post('/api/tags')
+      .send([{
+        'subscriptionId': 'subscriptionId1',
+        'tags': ['tag4']
+      }])
+      .end(function (err, res) {
+        expect(err).to.be.null
+        expect(res).to.have.status(200)
+        expect(res).to.have.headers
+        expect(res).to.be.json
+        expect(res.body).to.have.lengthOf(1)
+        expect(res.body[0]).to.have.property('id')
+        expect(res.body[0].id).to.be.above(0)
+        expect(res.body[0]).to.have.property('title')
+        expect(res.body[0].title).to.be.equal('tag4')
         done()
       })
   })

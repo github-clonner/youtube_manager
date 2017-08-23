@@ -40,7 +40,7 @@ router.get('/refresh', async function (req, res, next) {
   }
 })
 
-router.post('/tags/create', async function (req, res, next) {
+router.post('/tags', async function (req, res, next) {
   try {
     let tags = await tagRepository.create(req.body)
     res.json(tags)
