@@ -6,27 +6,25 @@ class SubscriptionRepository {
 
   async truncate () {
     try {
-      //logger.info('-----Truncating table Subscriptions')
-      let affectedRows = await models.Subscription.destroy({ where: {}, truncate: true })
-      //logger.info(`----- ${affectedRows} rows deleted.`)
+      await models.Subscription.destroy({ where: {}, truncate: true })
     } catch (error) {
+      logger.error('SubscriptionRepository.truncate() error')
       throw (error)
     }
   }
 
   async findOne (subId) {
     try {
-      //logger.info(`Searching subscription: ${subId}`)
       let subscription = await models.Subscription.findOne({ where: { id: subId } })
       return subscription
     } catch (error) {
+      logger.error('SubscriptionRepository.findOne() error')
       throw (error)
     }
   }
 
   async create (sub) {
     try {
-      //logger.info('Creating subscription')
       let currentDatetime = moment()
       let subscription = await models.Subscription.create({
         id: sub.id,
@@ -39,6 +37,7 @@ class SubscriptionRepository {
 
       return subscription
     } catch (error) {
+      logger.error('SubscriptionRepository.create() error')
       throw (error)
     }
   }

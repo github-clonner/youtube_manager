@@ -6,16 +6,6 @@ let subscriptionRepository = new SubscriptionRepository()
 
 class TagRepository {
 
-  /* async create (tag) {
-    try {
-      logger.info(`TagRepository.create: ${tag.title}`)
-      let out = await models.Tag.create({ title: tag.title })
-      return out
-    } catch (error) {
-      throw (error)
-    }
-  } */
-
   async create (tagsArray) {
     try {
       if (tagsArray.length === 0) {
@@ -28,7 +18,7 @@ class TagRepository {
         if (subscription !== null) {
           for (var tagEntry of tag.tags) {
             let theTag = await models.Tag.create({ title: tagEntry })
-            subscription.addTag(theTag)
+            await subscription.addTag(theTag)
             result.push(theTag)
           }
         }
@@ -36,23 +26,22 @@ class TagRepository {
 
       return result
     } catch (error) {
+      logger.error('TagRepository.create() error')
       throw (error)
     }
   }
 
   async truncate () {
     try {
-      logger.info('Truncating table Tags')
-      let affectedRows = await models.Tag.destroy({ where: {}, truncate: true })
-      logger.info(`Done. ${affectedRows} rows deleted.`)
+      await models.Tag.destroy({ where: {}, truncate: true })
     } catch (error) {
+      logger.error('TagRepository.truncate() error')
       throw (error)
     }
   }
 
   async find (tagId) {
     try {
-      logger.info(`Finding tag: ${tagId}`)
       let tag = await models.Tag.findOne({
         where: { id: tagId }
       })

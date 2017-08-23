@@ -30,7 +30,6 @@ router.get('/subscriptions', async function (req, res, next) {
 
 router.get('/refresh', async function (req, res, next) {
   let session = req.session
-  logger.info('Refreshing data')
 
   if (!session.valid) {
     authInstance.initAuthentication()
@@ -42,7 +41,6 @@ router.get('/refresh', async function (req, res, next) {
 })
 
 router.post('/tags/create', async function (req, res, next) {
-  logger.info(`/tags/create body: ${req.body}`)
   try {
     let tags = await tagRepository.create(req.body)
     res.json(tags)

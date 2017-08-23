@@ -21,6 +21,10 @@ describe('Test API', function() {
 
   beforeEach(async () => {
     try {
+      let subTruncatePromise = subscriptionRepository.truncate()
+      let tagTruncatePromise = tagRepository.truncate()
+      await Promise.all([subTruncatePromise, tagTruncatePromise])
+
       await subscriptionRepository.create(
         {
           'id': 'subscriptionId1',
@@ -30,17 +34,7 @@ describe('Test API', function() {
         }
       )
     } catch (error) {
-      console.log(error.message)
-    }
-  })
-
-  afterEach(async () => {
-    try {
-      let subTruncatePromise = subscriptionRepository.truncate()
-      let tagTruncatePromise = tagRepository.truncate()
-      await Promise.all([subTruncatePromise, tagTruncatePromise])
-    } catch (error) {
-      console.log(error.message)
+      console.log('Erreur pendant création sub: ' + error.message)
     }
   })
 
@@ -59,7 +53,7 @@ describe('Test API', function() {
         expect(res).to.have.status(200)
         expect(res).to.have.headers
         expect(res).to.be.json
-        //expect(res.body).to.have.lengthOf(3)
+        expect(res.body).to.have.lengthOf(3)
         done()
       })
   })
