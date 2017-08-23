@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "nodemon -e scss,js -x \"npm run myapp\"",
-    "myapp": "node-sass --include-path scss server/scss/main.scss server/public/stylesheets/main.css && node server/bin/www"
+    "myapp": "node-sass --include-path scss server/scss/main.scss server/public/stylesheets/main.css && node server/bin/www",
+    "test": "mocha"
   },
   "dependencies": {
     "body-parser": "~1.16.0",
