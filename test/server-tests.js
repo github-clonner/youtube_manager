@@ -21,10 +21,6 @@ describe('Test API', function() {
 
   beforeEach(async () => {
     try {
-      let subTruncatePromise = subscriptionRepository.truncate()
-      let tagTruncatePromise = tagRepository.truncate()
-      await Promise.all([subTruncatePromise, tagTruncatePromise])
-
       await subscriptionRepository.create(
         {
           'id': 'subscriptionId1',
@@ -36,6 +32,12 @@ describe('Test API', function() {
     } catch (error) {
       console.log('Erreur pendant création sub: ' + error.message)
     }
+  })
+
+  afterEach(async () => {
+    let subTruncatePromise = subscriptionRepository.truncate()
+    let tagTruncatePromise = tagRepository.truncate()
+    await Promise.all([subTruncatePromise, tagTruncatePromise])
   })
 
   it('should create all tags', function(done) {
