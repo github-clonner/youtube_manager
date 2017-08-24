@@ -1,7 +1,9 @@
 let models = require('../server/models')
 let chai = require('chai')
 let chaiHttp = require('chai-http')
+let chaiFs = require('chai-fs')
 let expect = chai.expect
+
 
 let { TagRepository } = require('../server/repositories/TagRepository')
 let { SubscriptionRepository } = require('../server/repositories/SubscriptionRepository')
@@ -12,7 +14,13 @@ let subscriptionRepository = new SubscriptionRepository()
 process.env.NODE_ENV = 'test'
 let app = require('../server/app')
 
+chai.use(chaiFs)
 chai.use(chaiHttp)
+
+
+let data = null
+
+
 
 describe('Test API', function() {
   before(async () => {
@@ -100,3 +108,11 @@ describe('Test API', function() {
       })
   })
 })
+
+describe('Test services', function() {
+  
+    it('should extract data from json', function(done) {
+      expect('./server/subs.json').to.not.have.headers
+      expect('./server/subs.json').to.be.a.file().with.json
+    })
+  })
