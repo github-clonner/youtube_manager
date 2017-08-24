@@ -1,26 +1,24 @@
 let models = require('../server/models')
 let chai = require('chai')
 let chaiHttp = require('chai-http')
-let chaiFs = require('chai-fs')
+let readJson = require('r-json')
 let expect = chai.expect
 
 
 let { TagRepository } = require('../server/repositories/TagRepository')
 let { SubscriptionRepository } = require('../server/repositories/SubscriptionRepository')
+let { YoutubeManagerService } = require('../server/services/YoutubeManagerService')
 
 let tagRepository = new TagRepository()
 let subscriptionRepository = new SubscriptionRepository()
+let youtubeManagerService = new YoutubeManagerService()
 
 process.env.NODE_ENV = 'test'
 let app = require('../server/app')
 
-chai.use(chaiFs)
 chai.use(chaiHttp)
 
-
 let data = null
-
-
 
 describe('Test API', function() {
   before(async () => {
@@ -97,22 +95,30 @@ describe('Test API', function() {
         done()
       })
   })
+})
 
+describe('Test services', function() {
+  
+  before(() => {
+    data = readJson('./server/subs.json')
+  })
+
+  it('should extract data from json', function() {
+    let extractedData = youtubeManagerService.getExtractedData(data)
+    expect(extractedData.prevPage).to.be.equal(data.prevPageToken)
+    expect(extractedData.nextPage).to.be.equal(data.nextPageToken)
+  })
+})
+
+describe('Misc', function() {
+  
   it('should give 404 with bad url', function(done) {
     chai.request(app)
       .get('/bad_url')
       .end(function (err, res) {
-        expect(err).to.not.null
+        expect(err).to.be.not.null
         expect(res).to.have.status(404)
         done()
       })
   })
 })
-
-describe('Test services', function() {
-  
-    it('should extract data from json', function(done) {
-      expect('./server/subs.json').to.not.have.headers
-      expect('./server/subs.json').to.be.a.file().with.json
-    })
-  })
