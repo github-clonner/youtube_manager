@@ -36,9 +36,4 @@ router.get('/oauthredirect', async function (req, res, next) {
   }
 })
 
-router.post('/submittags', (req, res, next) => {
-  res.end(req.body.input_tags)
-  process.exit()
-})
-
 module.exports = router

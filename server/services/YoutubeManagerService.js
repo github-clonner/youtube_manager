@@ -1,10 +1,13 @@
 let models = require('../models')
+let logger = require('bug-killer')
 let { SubscriptionRepository } = require('../repositories/SubscriptionRepository')
+let { TagRepository } = require('../repositories/TagRepository')
 
 let instance = null
 let subscriptionRepository = new SubscriptionRepository()
+let tagRepository = new TagRepository()
 
-class YoutubeDataService {
+class YoutubeManagerService {
   constructor (youtubeService) {
     if (!instance) {
       this.youtube = youtubeService
@@ -15,11 +18,28 @@ class YoutubeDataService {
     return instance
   }
 
-  async getSubscriptionsInfos (page) {
-   
+  async createTagsBySubscription (data) {
+    if (data.length === 0) {
+      logger.info('No tags to create. Aborting')
+      throw new Error('No tags to create. Aborting')
+    }
+
+    let result = []
+    for (var tag of data) {
+      let subscription = await subscriptionRepository.findOne(tag.subscriptionId)
+      if (subscription !== null) {
+        for (var tagEntry of tag.tags) {
+          let theTag = await tagRepository.create({ title: tagEntry })
+          await subscription.addTag(theTag)
+          result.push(theTag)
+        }
+      }
+    }
+
+    return result
   }
 
-  createExtractedData (data) {
+  getExtractedData (data) {
     let extractedData = {}
     extractedData.items = []
     extractedData.nextPage = data.nextPageToken
@@ -42,7 +62,7 @@ class YoutubeDataService {
       await subscriptionRepository.truncate()
       do {
         let data = await this.youtube.querySubscriptions(page)
-        let extracted = this.createExtractedData(data)
+        let extracted = this.getExtractedData(data)
         page = extracted.nextPage
         await models.Subscription.bulkCreate(extracted.items, { ignoreDuplicates: true, updateOnDuplicates: ['title', 'url', 'thumbnail_url', 'createdAt', 'updatedAt'] })
       } while (page !== undefined)
@@ -56,4 +76,4 @@ class YoutubeDataService {
   }
 }
 
-exports.YoutubeDataService = YoutubeDataService
+exports.YoutubeManagerService = YoutubeManagerService
