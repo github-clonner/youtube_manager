@@ -50,7 +50,7 @@ class YoutubeManagerService {
       try {
         let data = await this.youtube.querySubscriptions(nextPage)
         nextPage = data.nextPageToken
-        
+
         for (let i = 0; i < data.items.length; i++) {
           extractedData.items[itemIndex] = {}
           extractedData.items[itemIndex].id = data.items[i].id

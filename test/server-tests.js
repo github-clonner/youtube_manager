@@ -7,11 +7,13 @@ let expect = chai.expect
 
 let { TagRepository } = require('../server/repositories/TagRepository')
 let { SubscriptionRepository } = require('../server/repositories/SubscriptionRepository')
+let { YoutubeService } = require('../server/services/YoutubeService') 
 let { YoutubeManagerService } = require('../server/services/YoutubeManagerService')
 
 let tagRepository = new TagRepository()
 let subscriptionRepository = new SubscriptionRepository()
-let youtubeManagerService = new YoutubeManagerService()
+let youtubeService = new YoutubeService()
+let youtubeManagerService = new YoutubeManagerService(youtubeService)
 
 process.env.NODE_ENV = 'test'
 let app = require('../server/app')
@@ -96,6 +98,7 @@ describe('Test API', function() {
       })
   })
 })
+
 
 describe('Test services', function() {
   
