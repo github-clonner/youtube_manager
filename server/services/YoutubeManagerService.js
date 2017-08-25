@@ -39,19 +39,31 @@ class YoutubeManagerService {
     return result
   }
 
-  getExtractedData (data) {
+  async getExtractedData () {
     let extractedData = {}
     extractedData.items = []
-    extractedData.nextPage = data.nextPageToken
-    extractedData.previousPage = data.prevPageToken
 
-    for (let i = 0; i < data.items.length; i++) {
-      extractedData.items[i] = {}
-      extractedData.items[i].id = data.items[i].id
-      extractedData.items[i].title = data.items[i].snippet.title
-      extractedData.items[i].url = this.createUrlChannel(data.items[i].snippet.resourceId.channelId)
-      extractedData.items[i].thumbnail_url = data.items[i].snippet.thumbnails.default.url
-    }
+    let itemIndex = 0
+    let nextPage = null
+
+    do {
+      try {
+        let data = await this.youtube.querySubscriptions(nextPage)
+        nextPage = data.nextPageToken
+        
+        for (let i = 0; i < data.items.length; i++) {
+          extractedData.items[itemIndex] = {}
+          extractedData.items[itemIndex].id = data.items[i].id
+          extractedData.items[itemIndex].title = data.items[i].snippet.title
+          extractedData.items[itemIndex].url = this.createUrlChannel(data.items[i].snippet.resourceId.channelId)
+          extractedData.items[itemIndex].thumbnail_url = data.items[i].snippet.thumbnails.default.url
+          itemIndex++
+        }
+      } catch (error) {
+        logger.error('Error while retrieving youtube data: ' + error.message)
+        throw (error)
+      }
+    } while (nextPage !== undefined)
 
     return extractedData
   }
