@@ -3,7 +3,7 @@ let chai = require('chai')
 let chaiHttp = require('chai-http')
 let readJson = require('r-json')
 let nock = require('nock')
-let fss = require('fs')
+let fs = require('fs')
 let expect = chai.expect
 
 
@@ -110,10 +110,12 @@ describe('Test services', function() {
   let fixtures_exist = false
 
   before(() => {
-    let err = await fss.access(fixturesFile)
-    if (err) {
-     nock.recorder.rec({ dont_print: true }) 
-    }
+    
+    fs.access(fixturesFile, (err) => {
+      if (err.code === "ENOENT") {
+        nock.recorder.rec()
+      }
+    })
   })
 
   it('should extract data from json', function() {
@@ -123,15 +125,17 @@ describe('Test services', function() {
   })
 
   after((done) => {
-    let err = await fs.access(fixturesFile)
-    if (err) {
-     let fixtures = nock.recorder.play()
-     let text = "var nock = require('nock');\n" + fixtures.join('\n');
-     await fs.writeFile(fixturesFile, text, done);
-    }
+    fs.access(fixturesFile, (err) => {
+      if (err.code === 'ENOENT') {
+        let fixtures = nock.recorder.play()
+        console.log(fixtures)
+        let text = "var nock = require('nock');\n" + fixtures.join('\n');
+        fs.writeFile(fixturesFile, text, done);
+      }
+    })
   })
 })
-
+/*
 describe('Misc', function() {
   
   it('should give 404 with bad url', function(done) {
@@ -144,3 +148,4 @@ describe('Misc', function() {
       })
   })
 })
+*/
