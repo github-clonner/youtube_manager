@@ -2,6 +2,8 @@ let models = require('../server/models')
 let chai = require('chai')
 let chaiHttp = require('chai-http')
 let readJson = require('r-json')
+let nock = require('nock')
+let fss = require('fs')
 let expect = chai.expect
 
 
@@ -10,8 +12,6 @@ let { SubscriptionRepository } = require('../server/repositories/SubscriptionRep
 let { YoutubeService } = require('../server/services/YoutubeService') 
 let { YoutubeManagerService } = require('../server/services/YoutubeManagerService')
 
-let tagRepository = new TagRepository()
-let subscriptionRepository = new SubscriptionRepository()
 let youtubeService = new YoutubeService()
 let youtubeManagerService = new YoutubeManagerService(youtubeService)
 
@@ -23,6 +23,10 @@ chai.use(chaiHttp)
 let data = null
 
 describe('Test API', function() {
+
+  let tagRepository = new TagRepository()
+  let subscriptionRepository = new SubscriptionRepository()
+
   before(async () => {
     return await models.sequelize.sync()
   })
@@ -102,14 +106,29 @@ describe('Test API', function() {
 
 describe('Test services', function() {
   
+  let fixturesFile  = './fixtures/youtube.js'
+  let fixtures_exist = false
+
   before(() => {
-    data = readJson('./server/subs.json')
+    let err = await fss.access(fixturesFile)
+    if (err) {
+     nock.recorder.rec({ dont_print: true }) 
+    }
   })
 
   it('should extract data from json', function() {
     let extractedData = youtubeManagerService.getExtractedData(data)
     expect(extractedData.prevPage).to.be.equal(data.prevPageToken)
     expect(extractedData.nextPage).to.be.equal(data.nextPageToken)
+  })
+
+  after((done) => {
+    let err = await fs.access(fixturesFile)
+    if (err) {
+     let fixtures = nock.recorder.play()
+     let text = "var nock = require('nock');\n" + fixtures.join('\n');
+     await fs.writeFile(fixturesFile, text, done);
+    }
   })
 })
 
