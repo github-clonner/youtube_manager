@@ -6,6 +6,7 @@ let nock = require('nock')
 let fs = require('fs')
 let expect = chai.expect
 
+process.env.NODE_ENV = 'test'
 
 let { TagRepository } = require('../server/repositories/TagRepository')
 let { SubscriptionRepository } = require('../server/repositories/SubscriptionRepository')
@@ -15,7 +16,7 @@ let { YoutubeManagerService } = require('../server/services/YoutubeManagerServic
 let youtubeService = new YoutubeService()
 let youtubeManagerService = new YoutubeManagerService(youtubeService)
 
-process.env.NODE_ENV = 'test'
+
 let app = require('../server/app')
 
 chai.use(chaiHttp)
@@ -103,8 +104,7 @@ describe('Test API', function() {
   })
 })
 
-
-describe('Test services', function() {
+xdescribe('Test services', function() {
   
   let fixturesFile  = './fixtures/youtube.js'
   let fixtures_exist = false
@@ -128,14 +128,13 @@ describe('Test services', function() {
     fs.access(fixturesFile, (err) => {
       if (err.code === 'ENOENT') {
         let fixtures = nock.recorder.play()
-        console.log(fixtures)
         let text = "var nock = require('nock');\n" + fixtures.join('\n');
         fs.writeFile(fixturesFile, text, done);
       }
     })
   })
 })
-/*
+
 describe('Misc', function() {
   
   it('should give 404 with bad url', function(done) {
@@ -148,4 +147,3 @@ describe('Misc', function() {
       })
   })
 })
-*/

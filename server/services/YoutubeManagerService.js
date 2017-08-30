@@ -39,12 +39,12 @@ class YoutubeManagerService {
     return result
   }
 
-  async getExtractedData () {
+  async getExtractedData (page) {
     let extractedData = {}
     extractedData.items = []
 
     let itemIndex = 0
-    let nextPage = null
+    let nextPage = page
 
     do {
       try {

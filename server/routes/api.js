@@ -18,7 +18,7 @@ router.get('/subscriptions', async function (req, res, next) {
     return res.redirect(authInstance.generateAuthUrl('offline'))
   } else {
     try {
-      let subscriptions = await youtubeManagerService.getSubscriptionsInfos(req.query.page)
+      let subscriptions = await youtubeManagerService.getExtractedData(req.query.page)
       res.render('index', { ytData: subscriptions })
     } catch (error) {
       logger.error(error.message)

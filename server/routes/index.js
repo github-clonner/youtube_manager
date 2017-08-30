@@ -22,9 +22,9 @@ router.get('/', async function (req, res, next) {
 })
 
 router.get('/oauthredirect', async function (req, res, next) {
-  let authInstance = new AuthenticationService(session)
   let session = req.session
-
+  let authInstance = new AuthenticationService(session)
+  
   try {
     await authInstance.redirectCallback(req.query.code)
     session.valid = true
