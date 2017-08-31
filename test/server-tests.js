@@ -1,9 +1,8 @@
 let models = require('../server/models')
 let chai = require('chai')
 let chaiHttp = require('chai-http')
-let readJson = require('r-json')
-let nock = require('nock')
-let fs = require('fs')
+let sinon = require('sinon')
+let sinonChai = require('sinon-chai')
 let expect = chai.expect
 
 process.env.NODE_ENV = 'test'
@@ -20,6 +19,7 @@ let youtubeManagerService = new YoutubeManagerService(youtubeService)
 let app = require('../server/app')
 
 chai.use(chaiHttp)
+chai.use(sinonChai)
 
 let data = null
 
@@ -105,33 +105,18 @@ describe('Test API', function() {
 })
 
 xdescribe('Test services', function() {
-  
-  let fixturesFile  = './fixtures/youtube.js'
-  let fixtures_exist = false
 
-  before(() => {
-    
-    fs.access(fixturesFile, (err) => {
-      if (err.code === "ENOENT") {
-        nock.recorder.rec()
-      }
-    })
+  beforeEach(() => {
+    this.youtubeStub = sinon.stub
   })
 
-  it('should extract data from json', function() {
+  it('should extract data from youtube api', function() {
     let extractedData = youtubeManagerService.getExtractedData(data)
     expect(extractedData.prevPage).to.be.equal(data.prevPageToken)
     expect(extractedData.nextPage).to.be.equal(data.nextPageToken)
   })
 
   after((done) => {
-    fs.access(fixturesFile, (err) => {
-      if (err.code === 'ENOENT') {
-        let fixtures = nock.recorder.play()
-        let text = "var nock = require('nock');\n" + fixtures.join('\n');
-        fs.writeFile(fixturesFile, text, done);
-      }
-    })
   })
 })
 
