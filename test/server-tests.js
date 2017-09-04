@@ -1,6 +1,7 @@
 let models = require('../server/models')
 let chai = require('chai')
 let chaiHttp = require('chai-http')
+let readJson = require('r-json')
 let sinon = require('sinon')
 let sinonChai = require('sinon-chai')
 let expect = chai.expect
@@ -104,19 +105,28 @@ describe('Test API', function() {
   })
 })
 
-xdescribe('Test services', function() {
+describe('Test services', function() {
 
-  beforeEach(() => {
-    this.youtubeStub = sinon.stub
+  let youtubeStub = null
+
+  beforeEach(function() {
+    
+    
   })
 
   it('should extract data from youtube api', function() {
-    let extractedData = youtubeManagerService.getExtractedData(data)
-    expect(extractedData.prevPage).to.be.equal(data.prevPageToken)
-    expect(extractedData.nextPage).to.be.equal(data.nextPageToken)
+    let response = readJson('./server/subs.json')
+    let youtubeStub = sinon
+            .stub(youtubeService, 'querySubscriptions')
+            .resolves(response)
+    let extractedData = youtubeManagerService.getExtractedData(response.nextPageToken)
+    console.log(extractedData)
+    youtubeStub.restore()
+    //expect(extractedData.prevPage).to.be.equal(data.prevPageToken)
+    expect(extractedData.nextPage).to.be.equal(response.nextPageToken)
   })
 
-  after((done) => {
+  afterEach(function() {
   })
 })
 

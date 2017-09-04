@@ -5,7 +5,7 @@
   "scripts": {
     "start": "nodemon -e scss,js -x \"npm run myapp\"",
     "myapp": "node-sass --include-path scss server/scss/main.scss server/public/stylesheets/main.css && node server/bin/www",
-    "test": "mocha"
+    "test": "nyc --reporter=text mocha"
   },
   "dependencies": {
     "body-parser": "~1.16.0",
@@ -36,6 +36,7 @@
     "mocha": "^3.5.0",
     "node-sass": "^4.5.0",
     "nodemon": "^1.11.0",
+    "nyc": "^11.1.0",
     "sinon": "^3.2.1",
     "sinon-chai": "^2.13.0"
   }
