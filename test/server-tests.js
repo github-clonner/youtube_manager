@@ -108,25 +108,21 @@ describe('Test API', function() {
 describe('Test services', function() {
 
   let youtubeStub = null
-
+  let response = readJson('./server/subs.json')
+  
   beforeEach(function() {
-    
-    
+    youtubeStub = sinon.stub(youtubeService, 'querySubscriptions').resolves(response)
   })
 
-  it('should extract data from youtube api', function() {
-    let response = readJson('./server/subs.json')
-    let youtubeStub = sinon
-            .stub(youtubeService, 'querySubscriptions')
-            .resolves(response)
-    let extractedData = youtubeManagerService.getExtractedData(response.nextPageToken)
-    console.log(extractedData)
-    youtubeStub.restore()
-    //expect(extractedData.prevPage).to.be.equal(data.prevPageToken)
+  it('should extract data from youtube api', async function() {
+    let extractedData = await youtubeManagerService.getExtractedData(response.nextPageToken)
+    
+    expect(extractedData.items.length).to.be.equal(5)
     expect(extractedData.nextPage).to.be.equal(response.nextPageToken)
   })
 
   afterEach(function() {
+    youtubeStub.restore()
   })
 })
 
