@@ -29,11 +29,11 @@ describe('Test API', function() {
   let tagRepository = new TagRepository()
   let subscriptionRepository = new SubscriptionRepository()
 
-  before(async () => {
+  before(async function() {
     return await models.sequelize.sync()
   })
 
-  beforeEach(async () => {
+  beforeEach(async function() {
     try {
       await subscriptionRepository.create(
         {
@@ -48,7 +48,7 @@ describe('Test API', function() {
     }
   })
 
-  afterEach(async () => {
+  afterEach(async function() {
     let subTruncatePromise = subscriptionRepository.truncate()
     let tagTruncatePromise = tagRepository.truncate()
     await Promise.all([subTruncatePromise, tagTruncatePromise])
@@ -111,7 +111,8 @@ describe('Test services', function() {
   let response = readJson('./server/subs.json')
   
   beforeEach(function() {
-    youtubeStub = sinon.stub(youtubeService, 'querySubscriptions').resolves(response)
+    youtubeStub = sinon.stub(youtubeService, 'querySubscriptions')
+    youtubeStub.withArgs(undefined).resolves(response)
   })
 
   it('should extract data from youtube api', async function() {
