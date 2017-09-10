@@ -5,7 +5,7 @@
   "scripts": {
     "start": "nodemon -e scss,js -x \"npm run myapp\"",
     "myapp": "node-sass --include-path scss server/scss/main.scss server/public/stylesheets/main.css && node server/bin/www",
-    "test": "nyc --reporter=text mocha"
+    "test": "NODE_ENV=test nyc --reporter=text mocha"
   },
   "dependencies": {
     "body-parser": "~1.16.0",
@@ -19,6 +19,8 @@
     "jquery": "^3.1.1",
     "moment": "^2.18.1",
     "morgan": "~1.7.0",
+    "mysql": "^2.14.1",
+    "mysql2": "^1.4.2",
     "pug": "~2.0.0-beta10",
     "r-json": "^1.2.5",
     "sequelize": "^4.4.10",

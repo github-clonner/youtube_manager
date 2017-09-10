@@ -6,8 +6,6 @@ let sinon = require('sinon')
 let sinonChai = require('sinon-chai')
 let expect = chai.expect
 
-process.env.NODE_ENV = 'test'
-
 let { TagRepository } = require('../server/repositories/TagRepository')
 let { SubscriptionRepository } = require('../server/repositories/SubscriptionRepository')
 let { YoutubeService } = require('../server/services/YoutubeService') 
