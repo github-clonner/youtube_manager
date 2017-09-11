@@ -8,6 +8,7 @@ let expect = chai.expect
 
 let { TagRepository } = require('../server/repositories/TagRepository')
 let { SubscriptionRepository } = require('../server/repositories/SubscriptionRepository')
+let { TagSubscriptionRepository } = require('../server/repositories/TagSubscriptionRepository')
 let { YoutubeService } = require('../server/services/YoutubeService') 
 let { YoutubeManagerService } = require('../server/services/YoutubeManagerService')
 
@@ -26,6 +27,7 @@ describe('Test API', function() {
 
   let tagRepository = new TagRepository()
   let subscriptionRepository = new SubscriptionRepository()
+  let subTagRepository = new TagSubscriptionRepository()
 
   before(async function() {
     return await models.sequelize.sync()
@@ -47,9 +49,10 @@ describe('Test API', function() {
   })
 
   afterEach(async function() {
+    let subTagTruncatePromise = subTagRepository.truncate()
     let subTruncatePromise = subscriptionRepository.truncate()
     let tagTruncatePromise = tagRepository.truncate()
-    await Promise.all([subTruncatePromise, tagTruncatePromise])
+    await Promise.all([subTagTruncatePromise, subTruncatePromise, tagTruncatePromise])
   })
 
   it('should create all tags for one subscription', function(done) {
@@ -134,6 +137,10 @@ describe('Test services', function() {
     expect(extractedData.items[3].title).to.be.equal('Firebase')
     expect(extractedData.items[3].url).to.be.equal('https://www.youtube.com/channel/UCP4bf6IHJJQehibu6ai__cg')
     expect(extractedData.items[3].thumbnail_url).to.be.equal('https://yt3.ggpht.com/-IlfNr4Wok4g/AAAAAAAAAAI/AAAAAAAAAAA/K5Ojjvr8o5s/s88-c-k-no-mo-rj-c0xffffff/photo.jpg')
+  })
+
+  it('should refresh youtube subscriptions', async function() {
+    
   })
 
   afterEach(function() {
