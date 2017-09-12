@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Subscription.associate = (models) => {
     Subscription.belongsToMany(models.Tag, {
-      through: 'TagSubscription',
+      through: models.TagSubscription,
       onDelete: 'no action',
       onUpdate: 'no action'
     })
