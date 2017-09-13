@@ -25,14 +25,11 @@ class SubscriptionRepository {
 
   async create (sub) {
     try {
-      let currentDatetime = moment()
       let subscription = await models.Subscription.create({
         id: sub.id,
         title: sub.title,
         url: sub.url,
-        thumbnail_url: sub.thumbnail_url,
-        createdAt: currentDatetime,
-        updatedAt: currentDatetime
+        thumbnail_url: sub.thumbnail_url
       })
 
       return subscription

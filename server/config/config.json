@@ -12,7 +12,7 @@
     "database": "youtube",
     "dialect": "sqlite",
     "storage": "./youtube.sqlite",
-    "logging": false
+    "logging": true
   },
   "production": {
     "username": "root",

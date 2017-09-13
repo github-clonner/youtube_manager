@@ -35,7 +35,7 @@ describe('Test API', function() {
 
   beforeEach(async function() {
     try {
-      await subscriptionRepository.create(
+      let subscription = await subscriptionRepository.create(
         {
           'id': 'subscriptionId1',
           'title': 'Subscription Title 1',
@@ -49,8 +49,8 @@ describe('Test API', function() {
   })
 
   afterEach(async function() {
-    /*await subscriptionRepository.truncate()
-    await tagRepository.truncate()
+    await subscriptionRepository.truncate()
+    /*await tagRepository.truncate()
     await subTagRepository.truncate()*/
   })
 
