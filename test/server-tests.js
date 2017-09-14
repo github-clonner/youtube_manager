@@ -49,9 +49,11 @@ describe('Test API', function() {
   })
 
   afterEach(async function() {
-    await subscriptionRepository.truncate()
-    /*await tagRepository.truncate()
-    await subTagRepository.truncate()*/
+    await subTagRepository.deleteAll()
+    
+    let subPromise = subscriptionRepository.deleteAll()
+    let tagPromise = tagRepository.deleteAll()
+    await Promise.all([subPromise, tagPromise])
   })
 
   it('should create all tags for one subscription', function(done) {

@@ -1,24 +1,25 @@
 {
-  "development": {
+  "test": {
     "username": "yt_test",
     "password": "dvDG6uQTdvJnSe0V",
     "database": "yt_test",
-    "host": "oxyzone.info",
-    "dialect": "mysql"
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "logging": false
   },
-  "test": {
+  "no": {
     "username": null,
     "password": null,
     "database": "youtube",
     "dialect": "sqlite",
     "storage": "./youtube.sqlite",
-    "logging": true
+    "logging": false
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "username": "yt_test",
+    "password": "dvDG6uQTdvJnSe0V",
+    "database": "yt_test",
+    "host": "oxyzone.info",
     "dialect": "mysql",
     "logging": false
   }

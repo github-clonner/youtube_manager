@@ -1,14 +1,13 @@
 let models = require('../models')
 let logger = require('bug-killer')
-let moment = require('moment')
 
 class SubscriptionRepository {
 
-  async truncate () {
+  async deleteAll () {
     try {
-      await models.Subscription.destroy({ where: {}, truncate: true })
+      await models.Subscription.destroy({ where: {} })
     } catch (error) {
-      logger.error('SubscriptionRepository.truncate() error')
+      logger.error('SubscriptionRepository.deleteAll() error')
       throw (error)
     }
   }

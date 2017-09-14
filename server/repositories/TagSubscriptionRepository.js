@@ -3,11 +3,11 @@ let logger = require('bug-killer')
 
 class TagSubscriptionRepository {
 
-  async truncate () {
+  async deleteAll () {
     try {
-      await models.TagSubscription.destroy({ where: {}, truncate: true })
+      await models.TagSubscription.destroy({ where: {} })
     } catch (error) {
-      logger.error('SubscriptionRepository.truncate() error')
+      logger.error('SubscriptionRepository.deleteAll() error')
       throw (error)
     }
   }

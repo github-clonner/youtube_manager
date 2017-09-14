@@ -30,11 +30,11 @@ class TagRepository {
     }
   }
 
-  async truncate () {
+  async deleteAll () {
     try {
-      await models.Tag.destroy({ where: {}, truncate: true })
+      await models.Tag.destroy({ where: {} })
     } catch (error) {
-      logger.error('TagRepository.truncate() error')
+      logger.error('TagRepository.deleteAll() error')
       throw (error)
     }
   }
