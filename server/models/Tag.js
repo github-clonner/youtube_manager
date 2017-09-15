@@ -5,7 +5,11 @@ module.exports = (sequelize, DataTypes) => {
   })
 
   Tag.associate = models => {
-    Tag.belongsToMany(models.Subscription, { through: 'TagSubscription' })
+    Tag.belongsToMany(models.Subscription, {
+      through: models.TagSubscription,
+      onDelete: 'no action',
+      onUpdate: 'no action'
+    })
   }
 
   return Tag

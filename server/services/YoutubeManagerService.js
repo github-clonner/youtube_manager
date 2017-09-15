@@ -71,10 +71,10 @@ class YoutubeManagerService {
   async refreshData () {
     try {
       let extracted = this.getExtractedData(undefined)
-      await subscriptionRepository.truncate()
+      await subscriptionRepository.deleteAll()
       await models.Subscription.bulkCreate(extracted.items, { ignoreDuplicates: true, updateOnDuplicates: ['title', 'url', 'thumbnail_url', 'createdAt', 'updatedAt'] })
     } catch (error) {
-      throw new Error('Can\'t get data: ' + error.message)
+      throw new Error('Can\'t refresh data: ' + error.message)
     }
   }
 

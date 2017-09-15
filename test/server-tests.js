@@ -23,11 +23,19 @@ chai.use(sinonChai)
 
 let data = null
 
-describe('Test API', function() {
+let tagRepository = new TagRepository()
+let subscriptionRepository = new SubscriptionRepository()
+let subTagRepository = new TagSubscriptionRepository()
 
-  let tagRepository = new TagRepository()
-  let subscriptionRepository = new SubscriptionRepository()
-  let subTagRepository = new TagSubscriptionRepository()
+async function clearData() {
+  await subTagRepository.deleteAll()
+  
+  let subPromise = subscriptionRepository.deleteAll()
+  let tagPromise = tagRepository.deleteAll()
+  await Promise.all([subPromise, tagPromise])
+}
+
+describe('Test API', function() {
 
   before(async function() {
     return await models.sequelize.sync()
@@ -35,6 +43,8 @@ describe('Test API', function() {
 
   beforeEach(async function() {
     try {
+      
+      clearData()
       let subscription = await subscriptionRepository.create(
         {
           'id': 'subscriptionId1',
@@ -48,13 +58,7 @@ describe('Test API', function() {
     }
   })
 
-  afterEach(async function() {
-    await subTagRepository.deleteAll()
-    
-    let subPromise = subscriptionRepository.deleteAll()
-    let tagPromise = tagRepository.deleteAll()
-    await Promise.all([subPromise, tagPromise])
-  })
+  
 
   it('should create all tags for one subscription', function(done) {
     chai.request(app)
@@ -140,12 +144,34 @@ describe('Test services', function() {
     expect(extractedData.items[3].thumbnail_url).to.be.equal('https://yt3.ggpht.com/-IlfNr4Wok4g/AAAAAAAAAAI/AAAAAAAAAAA/K5Ojjvr8o5s/s88-c-k-no-mo-rj-c0xffffff/photo.jpg')
   })
 
-  it('should refresh youtube subscriptions', async function() {
-    
+  it.only('should refresh youtube subscriptions', async function() {
+    await clearData()
+
+    let subscription1 = {
+      id: 'subscription1',
+      title: 'subscription1 title',
+      url: 'http://fakeurl.com',
+      thumbnail_url: 'http://fakethumbnail.com'
+    }
+    let subscription2 = {
+      id: 'subscription2',
+      title: 'subscription2 title',
+      url: 'http://fakeurl2.com',
+      thumbnail_url: 'http://fakethumbnail2.com'
+    }
+    let tag1 = 'tag1'
+    let tag2 = 'tag2'
+
+    await subscriptionRepository.create(subscription1)
+    await subscriptionRepository.create(subscription2)
+    await tagRepository.create(tag1)
+    await tagRepository.create(tag2)
+
   })
 
-  afterEach(function() {
+  afterEach(async function() {
     youtubeStub.restore()
+    await clearData()
   })
 })
 
