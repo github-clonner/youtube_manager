@@ -27,13 +27,7 @@ let tagRepository = new TagRepository()
 let subscriptionRepository = new SubscriptionRepository()
 let subTagRepository = new TagSubscriptionRepository()
 
-async function clearData() {
-  await subTagRepository.deleteAll()
-  
-  let subPromise = subscriptionRepository.deleteAll()
-  let tagPromise = tagRepository.deleteAll()
-  await Promise.all([subPromise, tagPromise])
-}
+
 
 describe('Test API', function() {
 
@@ -44,7 +38,7 @@ describe('Test API', function() {
   beforeEach(async function() {
     try {
       
-      clearData()
+      await clearData()
       let subscription = await subscriptionRepository.create(
         {
           'id': 'subscriptionId1',
@@ -116,7 +110,47 @@ describe('Test services', function() {
   let response = readJson(__dirname + '/files/subs.json')
   let nextResponse = readJson(__dirname +'/files/subs2.json')
   
-  beforeEach(function() {
+  async function clearData() {
+    await subTagRepository.deleteAll()
+    
+    let subPromise = subscriptionRepository.deleteAll()
+    let tagPromise = tagRepository.deleteAll()
+    await Promise.all([subPromise, tagPromise])
+  }
+
+  async function createData() {
+    let subscription1 = {
+      id: 'Iy1499R-3VEo6r52o4zsr0PpYz8-Mzk9K3088f3sO5c',
+      title: 'subscription1 title',
+      url: 'http://fakeurl.com',
+      thumbnail_url: 'http://fakethumbnail.com'
+    }
+    let subscription2 = {
+      id: 'Iy1499R-3VEo6r52o4zsr2f_ovQj5T0P6T2F8E0NSJI',
+      title: 'subscription2 title',
+      url: 'http://fakeurl2.com',
+      thumbnail_url: 'http://fakethumbnail2.com'
+    }
+    let titleTag1 = 'tag1'
+    let titleTag2 = 'tag2'
+
+    let sub1 = await subscriptionRepository.create(subscription1)
+    let sub2 = await subscriptionRepository.create(subscription2)
+    let tag1 = await tagRepository.create({ title: titleTag1 })
+    let tag2 = await tagRepository.create({ title: titleTag2 })
+
+    await sub1.addTag(tag1)
+    await sub2.addTag(tag2)
+  }
+
+  before(async function() {
+    return await models.sequelize.sync()
+  })
+
+  beforeEach(async function() {
+    await clearData()
+    await createData()
+
     youtubeStub = sinon.stub(youtubeService, 'querySubscriptions')
     youtubeStub.withArgs(undefined).resolves(response)
     youtubeStub.withArgs('CAUQAA').resolves(nextResponse)
@@ -145,33 +179,12 @@ describe('Test services', function() {
   })
 
   it.only('should refresh youtube subscriptions', async function() {
-    await clearData()
-
-    let subscription1 = {
-      id: 'subscription1',
-      title: 'subscription1 title',
-      url: 'http://fakeurl.com',
-      thumbnail_url: 'http://fakethumbnail.com'
-    }
-    let subscription2 = {
-      id: 'subscription2',
-      title: 'subscription2 title',
-      url: 'http://fakeurl2.com',
-      thumbnail_url: 'http://fakethumbnail2.com'
-    }
-    let tag1 = 'tag1'
-    let tag2 = 'tag2'
-
-    await subscriptionRepository.create(subscription1)
-    await subscriptionRepository.create(subscription2)
-    await tagRepository.create(tag1)
-    await tagRepository.create(tag2)
-
+  
+    await youtubeManagerService.refreshData()  
   })
 
   afterEach(async function() {
     youtubeStub.restore()
-    await clearData()
   })
 })
 
