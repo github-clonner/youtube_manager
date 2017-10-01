@@ -14,8 +14,7 @@ class SubscriptionRepository {
 
   async findOne (subId) {
     try {
-      let subscription = await models.Subscription.findOne({ where: { id: subId } })
-      return subscription
+      return await models.Subscription.findOne({ where: { id: subId } })
     } catch (error) {
       logger.error('SubscriptionRepository.findOne() error')
       throw (error)
@@ -24,14 +23,12 @@ class SubscriptionRepository {
 
   async create (sub) {
     try {
-      let subscription = await models.Subscription.create({
+      return await models.Subscription.create({
         id: sub.id,
         title: sub.title,
         url: sub.url,
         thumbnail_url: sub.thumbnail_url
       })
-
-      return subscription
     } catch (error) {
       logger.error('SubscriptionRepository.create() error')
       throw (error)

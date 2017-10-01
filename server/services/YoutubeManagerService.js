@@ -25,11 +25,13 @@ class YoutubeManagerService {
     }
 
     let result = []
-    for (var tag of data) {
-      let subscription = await subscriptionRepository.findOne(tag.subscriptionId)
+    for (var dataEntry of data) {
+      let subscription = await subscriptionRepository.findOne(dataEntry.subscriptionId)
       if (subscription !== null) {
-        for (var tagEntry of tag.tags) {
-          let theTag = await tagRepository.create({ title: tagEntry })
+        // remove duplicates tags for this subscription
+        let tags = Array.from(new Set(dataEntry.tags))
+        for (var tag of tags) {
+          let theTag = await tagRepository.create({ title: tag })
           await subscription.addTag(theTag)
           result.push(theTag)
         }

@@ -8,13 +8,12 @@ let expect = chai.expect
 
 let { TagRepository } = require('../server/repositories/TagRepository')
 let { SubscriptionRepository } = require('../server/repositories/SubscriptionRepository')
-let { TagSubscriptionRepository } = require('../server/repositories/TagSubscriptionRepository')
+let { SubscriptionInfoRepository } = require('../server/repositories/SubscriptionInfoRepository')
 let { YoutubeService } = require('../server/services/YoutubeService') 
 let { YoutubeManagerService } = require('../server/services/YoutubeManagerService')
 
 let youtubeService = new YoutubeService()
 let youtubeManagerService = new YoutubeManagerService(youtubeService)
-
 
 let app = require('../server/app')
 
@@ -25,9 +24,20 @@ let data = null
 
 let tagRepository = new TagRepository()
 let subscriptionRepository = new SubscriptionRepository()
-let subTagRepository = new TagSubscriptionRepository()
+let subsciptionInfoRepository = new SubscriptionInfoRepository()
 
+async function clearData() {
+ 
+  let subPromise = subscriptionRepository.deleteAll()
+  let tagPromise = tagRepository.deleteAll()
+  let subInfoPromise = subsciptionInfoRepository.deleteAll()
 
+  try {
+    await Promise.all([subPromise, tagPromise, subInfoPromise])
+  } catch (error) {
+    throw error
+  }
+}
 
 describe('Test API', function() {
 
@@ -52,14 +62,12 @@ describe('Test API', function() {
     }
   })
 
-  
-
-  it('should create all tags for one subscription', function(done) {
+  it('should create all unique tags for one subscription', function(done) {
     chai.request(app)
       .post('/api/tags')
       .send([{
         'subscriptionId': 'subscriptionId1',
-        'tags': ['tag1', 'tag2', 'tag3']
+        'tags': ['tag1', 'tag2', 'tag3', 'tag1']
       }])
       .end(function (err, res) {
         expect(err).to.be.null
@@ -110,13 +118,7 @@ describe('Test services', function() {
   let response = readJson(__dirname + '/files/subs.json')
   let nextResponse = readJson(__dirname +'/files/subs2.json')
   
-  async function clearData() {
-    await subTagRepository.deleteAll()
-    
-    let subPromise = subscriptionRepository.deleteAll()
-    let tagPromise = tagRepository.deleteAll()
-    await Promise.all([subPromise, tagPromise])
-  }
+  
 
   async function createData() {
     let subscription1 = {
@@ -178,7 +180,7 @@ describe('Test services', function() {
     expect(extractedData.items[3].thumbnail_url).to.be.equal('https://yt3.ggpht.com/-IlfNr4Wok4g/AAAAAAAAAAI/AAAAAAAAAAA/K5Ojjvr8o5s/s88-c-k-no-mo-rj-c0xffffff/photo.jpg')
   })
 
-  it.only('should refresh youtube subscriptions', async function() {
+  xit('should refresh youtube subscriptions', async function() {
   
     await youtubeManagerService.refreshData()  
   })
