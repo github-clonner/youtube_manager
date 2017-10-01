@@ -30,6 +30,15 @@ class TagRepository {
     }
   }
 
+  async findTagByLabel (label) {
+    try {
+      return await models.Tag.findOne({where: {title: label}})
+    } catch (error) {
+      logger.error(`TagRepository.findOne(${label}) error`)
+      throw (error)
+    }
+  }
+
   async deleteAll () {
     try {
       await models.Tag.destroy({ where: {} })

@@ -31,13 +31,17 @@ class YoutubeManagerService {
         // remove duplicates tags for this subscription
         let tags = Array.from(new Set(dataEntry.tags))
         for (var tag of tags) {
-          let theTag = await tagRepository.create({ title: tag })
-          await subscription.addTag(theTag)
-          result.push(theTag)
+          let theTag = await tagRepository.findTagByLabel(tag.title)
+          if (theTag == null) {
+            let newTag = await tagRepository.create({ title: tag })
+            await subscription.addTag(newTag)
+            result.push(newTag)
+          } else {
+            await theTag.addSubscription(subscription)
+          }
         }
       }
     }
-
     return result
   }
 

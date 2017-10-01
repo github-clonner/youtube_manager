@@ -1,13 +1,13 @@
 {
-  "test": {
+  "development": {
     "username": "yt_test",
     "password": "dvDG6uQTdvJnSe0V",
     "database": "yt_test",
     "host": "oxyzone.info",
     "dialect": "mysql",
-    "logging": true
+    "logging": false
   },
-  "development": {
+  "test": {
     "username": null,
     "password": null,
     "database": "youtube",
