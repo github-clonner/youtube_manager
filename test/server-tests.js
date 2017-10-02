@@ -64,7 +64,7 @@ describe('Test API', function() {
 
   it('should create all unique tags for one subscription', function(done) {
     chai.request(app)
-      .post('/api/tags')
+      .post('/api/tags-collection')
       .send([{
         'subscriptionId': 'subscriptionId1',
         'tags': ['tag1', 'tag2', 'tag3', 'tag1']
@@ -93,7 +93,7 @@ describe('Test API', function() {
 
   it('should create one tag for one subscription', function(done) {
     chai.request(app)
-      .post('/api/tags')
+      .post('/api/tags-collection')
       .send([{
         'subscriptionId': 'subscriptionId1',
         'tags': ['tag4']

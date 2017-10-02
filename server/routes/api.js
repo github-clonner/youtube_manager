@@ -34,13 +34,13 @@ router.get('/refresh', async function (req, res, next) {
     return res.redirect(authInstance.generateAuthUrl('offline'))
   } else {
     await youtubeManagerService.refreshData()
-    res.end()
+    res.status(200)
   }
 })
 
-router.post('/tags', async function (req, res, next) {
+router.post('/tags-collection', async function (req, res, next) {
   try {
-    let tags = await youtubeManagerService.createTagsBySubscription(req.body)
+    let tags = await youtubeManagerService.createTagCollection(req.body)
     res.status(200).json(tags)
   } catch (error) {
     logger.error(error.message)
@@ -49,7 +49,7 @@ router.post('/tags', async function (req, res, next) {
   }
 })
 
-router.get('/tags', async function (req, res, next) {
+router.get('/tags-collection', async function (req, res, next) {
   try {
 
   } catch (error) {

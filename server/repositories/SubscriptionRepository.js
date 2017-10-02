@@ -12,9 +12,9 @@ class SubscriptionRepository {
     }
   }
 
-  async findOne (subId) {
+  async findOne (subscription) {
     try {
-      return await models.Subscription.findOne({ where: { id: subId } })
+      return await models.Subscription.findOne({ where: { id: subscription } })
     } catch (error) {
       logger.error('SubscriptionRepository.findOne() error')
       throw (error)

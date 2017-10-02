@@ -18,7 +18,7 @@ class YoutubeManagerService {
     return instance
   }
 
-  async createTagsBySubscription (data) {
+  async createTagCollection (data) {
     if (data.length === 0) {
       logger.info('No tags to create. Aborting')
       throw new Error('No tags to create. Aborting')
