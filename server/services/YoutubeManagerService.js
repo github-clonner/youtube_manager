@@ -37,7 +37,9 @@ class YoutubeManagerService {
             await subscription.addTag(newTag)
             result.push(newTag)
           } else {
-            await theTag.addSubscription(subscription)
+            if (!await subscription.hasTag(theTag)) {
+              subscription.addTag(theTag)
+            }
           }
         }
       }

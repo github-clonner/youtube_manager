@@ -118,8 +118,6 @@ describe('Test services', function() {
   let response = readJson(__dirname + '/files/subs.json')
   let nextResponse = readJson(__dirname +'/files/subs2.json')
   
-  
-
   async function createData() {
     let subscription1 = {
       id: 'Iy1499R-3VEo6r52o4zsr0PpYz8-Mzk9K3088f3sO5c',

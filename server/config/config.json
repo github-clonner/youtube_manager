@@ -1,5 +1,5 @@
 {
-  "development": {
+  "test": {
     "username": "yt_test",
     "password": "dvDG6uQTdvJnSe0V",
     "database": "yt_test",
@@ -7,7 +7,7 @@
     "dialect": "mysql",
     "logging": false
   },
-  "test": {
+  "development": {
     "username": null,
     "password": null,
     "database": "youtube",
