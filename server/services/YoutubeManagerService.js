@@ -25,23 +25,30 @@ class YoutubeManagerService {
     }
 
     let result = []
-    for (var dataEntry of data) {
-      let subscription = await subscriptionRepository.findOne(dataEntry.subscriptionId)
-      if (subscription !== null) {
-        // remove duplicates tags for this subscription
-        let tags = Array.from(new Set(dataEntry.tags))
-        for (var tag of tags) {
-          let theTag = await tagRepository.findTagByLabel(tag.title)
-          if (theTag == null) {
-            let newTag = await tagRepository.create({ title: tag })
-            await subscription.addTag(newTag)
-            result.push(newTag)
-          } else {
-            if (!await subscription.hasTag(theTag)) {
-              subscription.addTag(theTag)
-            }
+    let subscription = await subscriptionRepository.findOne(data.subscriptionId)
+    if (subscription !== null) {
+      // remove duplicates tags for this subscription
+      let tags = Array.from(new Set(data.tags))
+
+      for (var tag of tags) {
+        let theTag = await tagRepository.findTagByLabel(tag)
+        let resJson = {}
+        resJson.tags = []
+        resJson.subscriptionId = data.subscriptionId
+
+        if (theTag == null) {
+          let newTag = await tagRepository.create({ title: tag })
+          await subscription.addTag(newTag)
+          resJson.tags.push(newTag)
+          result.push(resJson)
+        } else {
+          if (!await subscription.hasTag(theTag)) {
+            subscription.addTag(theTag)
+            resJson.tags.push(theTag)
+            result.push(resJson)
           }
         }
+        
       }
     }
     return result
