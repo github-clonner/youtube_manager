@@ -65,28 +65,22 @@ describe('Test API', function() {
   it('should create all unique tags for one subscription', function(done) {
     chai.request(app)
       .post('/api/tags-collection')
-      .send([{
+      .send({
         'subscriptionId': 'subscriptionId1',
         'tags': ['tag1', 'tag2', 'tag3', 'tag1']
-      }])
+      })
       .end(function (err, res) {
         expect(err).to.be.null
         expect(res).to.have.status(200)
         expect(res).to.have.headers
         expect(res).to.be.json
-        expect(res.body).to.have.lengthOf(3)
-        expect(res.body[0]).to.have.property('id')
-        expect(res.body[0].id).to.be.above(0)
-        expect(res.body[0]).to.have.property('title')
-        expect(res.body[0].title).to.be.equal('tag1')
-        expect(res.body[1]).to.have.property('id')
-        expect(res.body[1].id).to.be.above(0)
-        expect(res.body[1]).to.have.property('title')
-        expect(res.body[1].title).to.be.equal('tag2')
-        expect(res.body[2]).to.have.property('id')
-        expect(res.body[2].id).to.be.above(0)
-        expect(res.body[2]).to.have.property('title')
-        expect(res.body[2].title).to.be.equal('tag3')
+        expect(res.body).to.have.property('subscriptionId')
+        expect(res.body.subscriptionId).to.be.equal('subscriptionId1')
+        expect(res.body).to.have.property('tags')
+        expect(res.body.tags).to.have.lengthOf(3)
+        expect(res.body.tags[0].title).to.be.equal('tag1')
+        expect(res.body.tags[1].title).to.be.equal('tag2')
+        expect(res.body.tags[2].title).to.be.equal('tag3')
         done()
       })
   })
@@ -94,20 +88,20 @@ describe('Test API', function() {
   it('should create one tag for one subscription', function(done) {
     chai.request(app)
       .post('/api/tags-collection')
-      .send([{
+      .send({
         'subscriptionId': 'subscriptionId1',
         'tags': ['tag4']
-      }])
+      })
       .end(function (err, res) {
         expect(err).to.be.null
         expect(res).to.have.status(200)
         expect(res).to.have.headers
         expect(res).to.be.json
-        expect(res.body).to.have.lengthOf(1)
-        expect(res.body[0]).to.have.property('id')
-        expect(res.body[0].id).to.be.above(0)
-        expect(res.body[0]).to.have.property('title')
-        expect(res.body[0].title).to.be.equal('tag4')
+        expect(res.body).to.have.property('subscriptionId')
+        expect(res.body.subscriptionId).to.be.equal('subscriptionId1')
+        expect(res.body).to.have.property('tags')
+        expect(res.body.tags).to.have.lengthOf(1)
+        expect(res.body.tags[0].title).to.be.equal('tag4')
         done()
       })
   })

@@ -24,34 +24,35 @@ class YoutubeManagerService {
       throw new Error('No tags to create. Aborting')
     }
 
-    let result = []
+    // let result = []
     let subscription = await subscriptionRepository.findOne(data.subscriptionId)
+    let resJson = {}
+
     if (subscription !== null) {
+      resJson.subscriptionId = data.subscriptionId
+      resJson.tags = []
+
       // remove duplicates tags for this subscription
       let tags = Array.from(new Set(data.tags))
 
       for (var tag of tags) {
         let theTag = await tagRepository.findTagByLabel(tag)
-        let resJson = {}
-        resJson.tags = []
-        resJson.subscriptionId = data.subscriptionId
 
         if (theTag == null) {
           let newTag = await tagRepository.create({ title: tag })
           await subscription.addTag(newTag)
           resJson.tags.push(newTag)
-          result.push(resJson)
         } else {
           if (!await subscription.hasTag(theTag)) {
             subscription.addTag(theTag)
             resJson.tags.push(theTag)
-            result.push(resJson)
+            // result.push(resJson)
           }
         }
-        
       }
+      // result.push(resJson)
     }
-    return result
+    return resJson
   }
 
   async getExtractedData (page) {
