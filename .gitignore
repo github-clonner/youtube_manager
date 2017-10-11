@@ -4,3 +4,4 @@ npm-debug.log
 youtube.sqlite
 package-lock.json
 .directory
+credentials.json
